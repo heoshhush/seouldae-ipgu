@@ -1,13 +1,38 @@
+@font-face {
+  font-family: "anton";
+  src: url("common/fonts/Anton/Anton-Regular.ttf");
+}
+@font-face {
+  font-family: "architectsDaughter";
+  src: url("common/fonts/Architects_Daughter/ArchitectsDaughter-Regular.ttf");
+}
+@font-face {
+  font-family: "doHyeon";
+  src: url("common/fonts/Do_Hyeon/DoHyeon-Regular.ttf");
+}
+@font-face {
+  font-family: "nanumMyeongjo";
+  src: url("common/fonts/Nanum_Myeongjo/NanumMyeongjo-Regular.ttf");
+}
+@font-face {
+  font-family: "nanumPenScript";
+  src: url("common/fonts/Nanum_Pen_Script/NanumPenScript-Regular.ttf");
+}
+@font-face {
+  font-family: "roboto";
+  src: url("common/fonts/Roboto/Roboto-Regular.ttf");
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
