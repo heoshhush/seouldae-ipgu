@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import Styles from './login.module.css';
 import logo from '../../common/logo/logo_transparent.png'
+import Footer from '../footer/footer';
 
 const Login = ({ firebaseAuth }) => {
+
+    const aboutRef = useRef();
     const history = useHistory();
 
     const onClick = (event) => {
@@ -25,12 +28,17 @@ const Login = ({ firebaseAuth }) => {
     }
     , [history, firebaseAuth])
 
+    aboutRef&&console.dir(aboutRef.current)
+
 
     return(
-            <div className={Styles.container}>
+        <div className={Styles.container}>
                 
                     <div className={Styles.loginHeader}>
                         <img className={Styles.logo} src={logo} alt="logo"/>
+                        <div className={Styles.headerBtns}>
+                            <button className={Styles.headerAboutBtn}>About</button>
+                        </div>
                     </div>
                     <div className={Styles.innerContainer}>
                         <div className={Styles.title}>
@@ -48,8 +56,14 @@ const Login = ({ firebaseAuth }) => {
                                     <i className={`fab fa-github ${Styles.githubIcon}`}></i>
                                 </button>
                             </div>
+    
                         </section>
                      </div>
+                    <div className={Styles.aboutPage}>
+                        <div ref={aboutRef} className={Styles.aboutPageTitle}>About</div>
+                    </div>
+
+            <Footer />
         </div>
     )
 }

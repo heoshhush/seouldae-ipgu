@@ -1,14 +1,38 @@
 .loginHeader {
+  display: flex;
+  align-items: center;
   min-height: 3em;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 0 1.5em 0 1.5em;
+  width: 100%;
+  position: fixed;
 }
 .logo {
   width: 5em;
   height: 5em;
 }
+.headerBtns {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+.headerAboutBtn {
+  cursor: pointer;
+  border: none;
+  font-family: "nanumMyeongjo";
+  font-size: 1.2em;
+  padding: 0.5em;
+  font-weight: bold;
+  transition: all 300ms ease;
+  background-color: transparent;
+  outline: none;
+}
+.headerAboutBtn:hover {
+  background-color: wheat;
+}
+
 .container {
-  min-height: 90em;
+  min-height: 140em;
   background-image: url("../../common/img/background_seoul.jpg");
   background-size: cover;
   background-position-y: -20em;
@@ -18,15 +42,15 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100em;
+  height: 60em;
   background: rgba(0, 0, 0, 0.4);
-  padding-top: 10em;
 }
 .title {
   color: white;
   font-family: "doHyeon";
   font-size: 5em;
   border-bottom: 3px solid white;
+  margin-top: 3.5em;
 }
 .login {
   display: flex;
@@ -36,8 +60,8 @@
 .loginTitle {
   margin-top: 1em;
   color: white;
-  font-size: 1.5em;
-  font-family: "roboto";
+  font-size: 2em;
+  font-family: "nanumMyeongjo";
 }
 
 .googleLogin,
@@ -69,4 +93,19 @@
 .githubIcon {
   font-size: 1em;
   margin-left: 0.5em;
+}
+
+.aboutPage {
+  height: 70em;
+  background-color: #74ebd5;
+  background-image: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+}
+
+.aboutPageTitle {
+  font-family: "nanumMyeongjo";
+  color: white;
+  font-size: 6em;
+  font-weight: bold;
+  padding-top: 1em;
+  text-align: center;
 }
