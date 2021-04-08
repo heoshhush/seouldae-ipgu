@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from './user.module.css'
 
-const User = ({firebaseAuth}) => {
+const User = ({ firebaseAuth }) => {
     const logout = () => {
         firebaseAuth.logout();
     }

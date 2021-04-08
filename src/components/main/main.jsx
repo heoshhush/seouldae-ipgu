@@ -21,7 +21,6 @@ const Main = ({ firebaseAuth }) => {
                 firebaseAuth={firebaseAuth}
             />
             <section className={Styles.section}>
-
             </section>
             <Footer />
         </main>

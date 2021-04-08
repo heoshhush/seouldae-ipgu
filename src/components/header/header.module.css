@@ -8,6 +8,7 @@
   position: fixed;
 }
 .logo {
+  cursor: pointer;
   width: 5em;
   height: 5em;
 }
@@ -15,8 +16,28 @@
   flex-basis: 80%;
   display: flex;
   justify-content: space-around;
-  padding: 0 15em;
+  padding: 0 10em 0 5em;
 }
+.menuBtn,
+.boardBtn,
+.discussBtn,
+.dishBtn {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.5em;
+  font-family: "doHyeon";
+  color: black;
+  padding: 0.4em 0.5em 0.4em 0.5em;
+}
+.menuBtn:hover,
+.boardBtn:hover,
+.discussBtn:hover,
+.dishBtn:hover {
+  border-bottom: 5px solid darkolivegreen;
+}
+
 .userPanel {
   display: flex;
   flex-direction: column;
