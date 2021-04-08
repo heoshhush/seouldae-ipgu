@@ -1,27 +1,41 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import Styles from './header.module.css'
 import logo from '../../common/logo/logo_transparent.png'
 import User from '../user/user';
 import { useHistory } from 'react-router';
 
-const Header = ({ firebaseAuth }) => {
+const Header = ({ firebaseAuth, userId }) => {
     const [userClick, setUserClick] = useState(false);
+    console.log(`header: ${userId}`)
 
     const history = useHistory();
-    
+
     const onClickLogo = () => {
-        history.push('/main')
+        history.push({
+            pathname:'/main',
+            state:{
+                id: userId
+            }})
     } 
 
-    const clickUserBtn = useCallback(
+    const clickUserBtn =
         () => {
             userClick=== true ? setUserClick(false) : setUserClick(true);
-    }
-    );
+    };
 
     const movePage = (event) => {
-        history.push(`/${event.currentTarget.name}`)
+        history.push({
+            pathname:`${event.currentTarget.name}`,
+            state: {
+                id: userId
+            }
+        })
     }
+
+    //멀쩡하던 userId가 갑자기 왜 undefined으로?
+    // 로그인 직후까진 괜찮은데,
+    // 페이지 옮기자마자 그 로그인 정보가 사라짐.
+    console.log(`header: ${userId}`)
 
 
     return(

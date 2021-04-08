@@ -1,0 +1,27 @@
+.discussCard {
+  width: 100%;
+  background-color: white;
+  border: 1px solid black;
+  padding: 1em;
+}
+.cardInfo {
+  display: flex;
+  flex-direction: row;
+}
+.userInfo {
+  font-size: 0.8em;
+  margin-bottom: 0.2em;
+  margin-right: 0.5em;
+}
+.userIcon {
+  margin-right: 0.5em;
+  color: teal;
+}
+.cardDate {
+  font-size: 0.8em;
+  color: grey;
+}
+.cardText {
+  margin-top: 0.2em;
+  font-size: 1.1em;
+}
