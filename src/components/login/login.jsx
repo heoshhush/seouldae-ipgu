@@ -6,7 +6,6 @@ import Footer from '../footer/footer';
 
 const Login = ({ firebaseAuth }) => {
 
-    const aboutRef = useRef();
     const history = useHistory();
 
     const onClick = (event) => {
@@ -28,7 +27,6 @@ const Login = ({ firebaseAuth }) => {
     }
     , [history, firebaseAuth])
 
-    aboutRef&&console.dir(aboutRef.current)
 
 
     return(
@@ -60,7 +58,7 @@ const Login = ({ firebaseAuth }) => {
                         </section>
                      </div>
                     <div className={Styles.aboutPage}>
-                        <div ref={aboutRef} className={Styles.aboutPageTitle}>About</div>
+                        <div className={Styles.aboutPageTitle}>About</div>
                     </div>
 
             <Footer />

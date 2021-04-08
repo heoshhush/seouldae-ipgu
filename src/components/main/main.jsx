@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
+import Footer from '../footer/footer';
+import Header from '../header/header';
 import Styles from './main.module.css'
 
 const Main = ({ firebaseAuth }) => {
     const history= useHistory();
     
-    const logout = () => {
-        firebaseAuth.logout();
-    }
-
     useEffect(() => {
         firebaseAuth.authChanged(user => {
             if(!user){
@@ -19,8 +17,13 @@ const Main = ({ firebaseAuth }) => {
     
     return(
         <main>
-            this is main
-            <button onClick={logout}>Logout</button>
+            <Header 
+                firebaseAuth={firebaseAuth}
+            />
+            <section className={Styles.section}>
+
+            </section>
+            <Footer />
         </main>
     )  
 };

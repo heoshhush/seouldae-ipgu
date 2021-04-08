@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 3em;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0 1.5em 0 1.5em;
+  width: 100%;
+  position: fixed;
+}
+.logo {
+  width: 5em;
+  height: 5em;
+}
+.menu {
+  flex-basis: 80%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 15em;
+}
+.userPanel {
+  display: flex;
+  flex-direction: column;
+}
+.userBtn {
+  cursor: pointer;
+  border: 1.2px solid grey;
+  outline: none;
+  background-color: transparent;
+  font-size: 1em;
+  font-family: "roboto";
+  color: black;
+  padding: 0.4em 0.5em 0.4em 0.5em;
+}
+.userBtn:hover {
+  background-color: black;
+  color: white;
+}
+.userIcon {
+  font-size: 0.9em;
+  margin-right: 0.5em;
+}
+.hiddenUserPanel {
+  position: relative;
+}
+.user {
+  position: absolute;
+  width: 100%;
+  background-color: grey;
+}
