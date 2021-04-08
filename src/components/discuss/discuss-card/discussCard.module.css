@@ -3,12 +3,14 @@
   background-color: white;
   border: 1px solid black;
   padding: 1em;
+  margin-bottom: 1em;
 }
 .cardInfo {
   display: flex;
   flex-direction: row;
 }
 .userInfo {
+  flex-basis: 8%;
   font-size: 0.8em;
   margin-bottom: 0.2em;
   margin-right: 0.5em;
@@ -20,6 +22,17 @@
 .cardDate {
   font-size: 0.8em;
   color: grey;
+  flex-basis: 90%;
+}
+.deleteBtn {
+  cursor: pointer;
+  border: none;
+  font-size: 1em;
+  background-color: transparent;
+  outline: none;
+}
+.deleteBtn:hover {
+  color: tomato;
 }
 .cardText {
   margin-top: 0.2em;

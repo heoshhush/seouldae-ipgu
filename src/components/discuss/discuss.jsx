@@ -6,30 +6,12 @@ import AddDiscuss from './add-discuss/addDiscuss';
 import DiscussCard from './discuss-card/discussCard';
 import { useHistory } from 'react-router';
 
-const Discuss = ({firebaseAuth}) => {
+const Discuss = ({firebaseAuth, discussDatabase}) => {
     const history = useHistory();
     const historyState = history.location.state.id;
     console.log(`discuss : ${historyState}`)
 
     const [cards, setCards] = useState({
-        1 : {
-            id: 1,
-            userId:'a',
-            text: 'hello',
-            date: new Date().toLocaleString()
-        },
-        2 : {
-            id: 1,
-            userId:'b',
-            text: 'nice to meet you',
-            date: new Date().toLocaleString()
-        },
-        3 : {
-            id: 3,
-            userId:'c',
-            text: 'bye bye',
-            date: new Date().toLocaleString()
-        }
     })
 
     const onClickAddBtn = (card) => {
@@ -38,6 +20,19 @@ const Discuss = ({firebaseAuth}) => {
         setCards(toAdd);
     }
 
+    const loadCard = () => {
+        discussDatabase.loadCard(
+            (value) => {
+                value && setCards(value);
+            }
+        )
+        
+    }
+
+    useEffect(() => {
+        loadCard();
+    }, [])
+
     useEffect(() => {
         firebaseAuth.authChanged(user => {
             if(!user){
@@ -45,7 +40,6 @@ const Discuss = ({firebaseAuth}) => {
             }
         })
     })
-
 
 
     return(        
@@ -59,6 +53,8 @@ const Discuss = ({firebaseAuth}) => {
                 <div className={Styles.addDiscuss}>
                     <AddDiscuss 
                         onClickAddBtn={onClickAddBtn}
+                        userId={historyState}
+                        discussDatabase={discussDatabase}
                     />
                 </div>
                 <div className={Styles.discussCards}>
@@ -66,6 +62,9 @@ const Discuss = ({firebaseAuth}) => {
                         <DiscussCard 
                             key={key}
                             card={cards[key]}
+                            discussDatabase={discussDatabase}
+                            loadCard={loadCard}
+                            userId={historyState}
                         />
                     )
                     )}
