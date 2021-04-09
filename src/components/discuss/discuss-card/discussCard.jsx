@@ -1,9 +1,9 @@
 import React from 'react';
 import Styles from './discussCard.module.css';
 
-const DiscussCard = ({ card, loadCard, discussDatabase, userId }) => {
+const DiscussCard = ({ card, loadCard, database, userId }) => {
     const deleteCard = () => {
-        discussDatabase.deleteCard(card);
+        database.deleteCard('anonymous', card);
         loadCard()
     }
 

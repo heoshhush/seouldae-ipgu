@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import DiscussDatabase from '../../../services/discussDatabase';
+import DiscussDatabase from '../../../services/database';
 import Styles from './addDiscuss.module.css';
 
-const AddDiscuss = ({ onClickAddBtn, userId, discussDatabase }) => {
+const AddDiscuss = ({ onClickAddBtn, userId, database }) => {
     const inputRef = useRef();
     const formRef = useRef();
 
@@ -15,7 +15,7 @@ const AddDiscuss = ({ onClickAddBtn, userId, discussDatabase }) => {
             date: new Date().toLocaleString()
         }
         onClickAddBtn(toAddCard);
-        discussDatabase.saveCard(toAddCard)
+        database.saveCard('anonymous', toAddCard)
         formRef.current.reset();
     }
 

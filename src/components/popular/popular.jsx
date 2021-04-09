@@ -6,8 +6,9 @@ import { useHistory } from 'react-router';
 
 const Popular = ({firebaseAuth}) => {
     const history = useHistory();
-    const historyState = history.location.state.id;
-    console.log(`popular : ${historyState}`)
+    const historyState = history.location.state
+    console.log(`popular userId : ${historyState.id}`)
+    console.log(`popular displayName : ${historyState.displayName}`)
 
     useEffect(() => {
         firebaseAuth.authChanged(user => {
@@ -22,7 +23,8 @@ const Popular = ({firebaseAuth}) => {
         <>
         <Header 
             firebaseAuth={firebaseAuth}
-            userId={historyState}
+            userId={historyState.id}
+            displayName={historyState.displayName}
         />
         <div className={Styles.popular}>
             popular

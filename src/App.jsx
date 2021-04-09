@@ -9,7 +9,7 @@ import Login from './components/login/login';
 import Main from './components/main/main';
 import Popular from './components/popular/popular';
 
-function App({ firebaseAuth, discussDatabase }) {
+function App({ firebaseAuth, database }) {
 
   return (
       <BrowserRouter basename="/seouldae-ipgu">
@@ -32,12 +32,13 @@ function App({ firebaseAuth, discussDatabase }) {
           <Route path="/board">
             <Board
               firebaseAuth={firebaseAuth}
+              database={database}
             />
           </Route>
           <Route path="/discuss">
             <Discuss
             firebaseAuth={firebaseAuth}
-            discussDatabase={discussDatabase}
+            database={database}
             />
           </Route>
           <Route path="/dish">

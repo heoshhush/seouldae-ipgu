@@ -6,10 +6,11 @@ import AddDiscuss from './add-discuss/addDiscuss';
 import DiscussCard from './discuss-card/discussCard';
 import { useHistory } from 'react-router';
 
-const Discuss = ({firebaseAuth, discussDatabase}) => {
+const Discuss = ({firebaseAuth, database}) => {
     const history = useHistory();
-    const historyState = history.location.state.id;
-    console.log(`discuss : ${historyState}`)
+    const historyState = history.location.state;
+    console.log(`discuss ID : ${historyState.id}`)
+    console.log(`discuss displayName: ${historyState.displayName}`)
 
     const [cards, setCards] = useState({
     })
@@ -21,7 +22,7 @@ const Discuss = ({firebaseAuth, discussDatabase}) => {
     }
 
     const loadCard = () => {
-        discussDatabase.loadCard(
+        database.loadCard('anonymous', 
             (value) => {
                 value && setCards(value);
             }
@@ -46,15 +47,16 @@ const Discuss = ({firebaseAuth, discussDatabase}) => {
         <>
         <Header 
             firebaseAuth={firebaseAuth}
-            userId={historyState}
+            userId={historyState.id}
+            displayName={historyState.displayName}
             />
         <div className={Styles.discuss}>
             <div className={Styles.title}> 토론 </div>
                 <div className={Styles.addDiscuss}>
                     <AddDiscuss 
                         onClickAddBtn={onClickAddBtn}
-                        userId={historyState}
-                        discussDatabase={discussDatabase}
+                        userId={historyState.id}
+                        database={database}
                     />
                 </div>
                 <div className={Styles.discussCards}>
@@ -62,9 +64,9 @@ const Discuss = ({firebaseAuth, discussDatabase}) => {
                         <DiscussCard 
                             key={key}
                             card={cards[key]}
-                            discussDatabase={discussDatabase}
+                            database={database}
                             loadCard={loadCard}
-                            userId={historyState}
+                            userId={historyState.id}
                         />
                     )
                     )}

@@ -11,6 +11,8 @@
 }
 .nickname {
   padding-bottom: 1.1em;
+}
+.date {
   border-bottom: 1px solid gray;
 }
 .text {

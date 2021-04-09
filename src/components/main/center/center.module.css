@@ -1,0 +1,18 @@
+.center {
+  display: flex;
+  flex-direction: column;
+  min-height: 50em;
+  flex-basis: 80%;
+  background-color: white;
+  margin-left: 2em;
+  margin-bottom: 2em;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.29);
+  padding: 1em 2em 1em 2em;
+}
+.slider {
+  background-color: gray;
+  min-height: 20em;
+  width: 100%;
+  color: white;
+  font-size: 1em;
+}

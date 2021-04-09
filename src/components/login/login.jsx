@@ -19,8 +19,10 @@ const Login = ({ firebaseAuth }) => {
                 history.push({
                     pathname:"/main",
                     state:{
-                        id:user.uid
+                        id:user.uid,
+                        displayName:user.displayName
                     }
+                    
                 })
             }
         }) 

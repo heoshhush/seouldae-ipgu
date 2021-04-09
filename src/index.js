@@ -4,16 +4,16 @@ import '@fortawesome/fontawesome-free/js/all.js';
 import './index.css';
 import App from './App';
 import FirebaseAuth from './services/firebaseAuth';
-import DiscussDatabase from './services/discussDatabase';
+import Database from './services/database';
 
 const firebaseAuth = new FirebaseAuth();
-const discussDatabase = new DiscussDatabase();
+const database = new Database();
 
 ReactDOM.render(
   <React.StrictMode>
     <App 
       firebaseAuth={firebaseAuth}
-      discussDatabase={discussDatabase}
+      database={database}
     />
   </React.StrictMode>,
   document.getElementById('root')

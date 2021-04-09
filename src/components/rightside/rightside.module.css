@@ -1,0 +1,7 @@
+.rightSide {
+  flex-basis: 20%;
+  background-color: white;
+  margin-left: 3em;
+  border: 1px solid gray;
+  margin-bottom: 2em;
+}

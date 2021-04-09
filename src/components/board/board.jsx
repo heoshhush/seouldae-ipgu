@@ -8,40 +8,11 @@ import Styles from './board.module.css';
 import View from './view/view';
 import Write from './write/write';
 
-const Board = ({firebaseAuth}) => {
+const Board = ({firebaseAuth, database }) => {
     const history = useHistory();
-    const historyState = history.location.state.id;
-    console.log(`board: ${historyState}`)
-
-    const [cards, setCards] = useState({
-        1:{
-            id: 1,
-            userId: historyState,
-            nickname: 'kim',
-            title: 'title1',
-            text: 'wow~',
-            imgName: 'heo',
-            imgURL: 'heo.heo.com'
-        },
-        2:{
-            id: 2,
-            userId: historyState,
-            nickname: 'heo',
-            title: 'title2',
-            text: 'wow2',
-            imgName: 'heo',
-            imgURL: 'heo.heo.com'
-        },
-        3:{
-            id: 3,
-            userId: historyState,
-            nickname: 'park',
-            title: 'title3',
-            text: 'wow3',
-            imgName: 'heo',
-            imgURL: 'heo.heo.com'
-        }
-    })
+    const historyState = history.location.state;
+    const [cards, setCards] = useState({})
+    const cardKeys = Object.keys(cards)
 
     useEffect(() => {
         firebaseAuth.authChanged(user => {
@@ -54,26 +25,42 @@ const Board = ({firebaseAuth}) => {
     const writeCards = (writeCard) => {
         const addTo = {...cards};
         addTo[writeCard.id] = writeCard;
+        database.saveCard('board', writeCard)
         setCards(addTo);
+        
     }
+
+    const loadCards = () => {
+        database.loadCard("board", (value) => {
+            value && setCards(value);
+        })
+    }
+
+    useEffect(() => {
+        loadCards()
+    }, [])
+
 
     return(
         <>
         <Header 
             firebaseAuth={firebaseAuth}
-            userId={historyState}
+            userId={historyState.id}
+            displayName={historyState.displayName}
         />
+        
         
             <div className={Styles.board}>
                 <div className={Styles.boardTitle}>게시판</div>
                 <Route path='/board' exact>
                     <ul className={Styles.boardCardList}>
-                        {Object.keys(cards).map(key=> (
+                       {Object.keys(cards).map(key=> (
                             <Link to= {`/board/view&id=${key}`}>
                                 <li>
                                     <BoardCard 
                                         key={key}
                                         card={cards[key]}
+                                        cardKeys={cardKeys}
                                     />
                                 </li>
                             </Link>
@@ -91,6 +78,9 @@ const Board = ({firebaseAuth}) => {
                         <View 
                             key={key}
                             card={cards[key]}
+                            database={database}
+                            loadCards={loadCards}
+                            userId={historyState.id}
                         />
                     </Route>
                 ))
@@ -100,8 +90,10 @@ const Board = ({firebaseAuth}) => {
                     <Route path="/board/write">
                         <Write 
                             writeCards = {writeCards}
-                            userId = {historyState}
-                        />
+                            database = {database}
+                            userId = {historyState.id}
+                            displayName = {historyState.displayName}
+                        /> 
                     </Route>
                 </div>
                 

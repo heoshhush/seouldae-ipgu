@@ -27,6 +27,10 @@ class FirebaseAuth {
         })
     }
 
+    getUserInfo = () => {
+        return firebaseAuth.currentUser
+    }
+
 }
 
 export default FirebaseAuth ;

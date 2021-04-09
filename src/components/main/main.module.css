@@ -1,3 +1,7 @@
+.header {
+  padding-bottom: 7em;
+}
 .section {
-  min-height: 70em;
+  display: flex;
+  flex-direction: row;
 }

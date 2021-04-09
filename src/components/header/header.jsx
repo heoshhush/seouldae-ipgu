@@ -5,9 +5,10 @@ import User from '../user/user';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
-const Header = ({ firebaseAuth, userId }) => {
+const Header = ({ firebaseAuth, userId, displayName }) => {
     const [userClick, setUserClick] = useState(false);
     console.log(`header: ${userId}`)
+    console.log(`header displayName : ${displayName}`)
 
     const history = useHistory();
 
@@ -15,7 +16,8 @@ const Header = ({ firebaseAuth, userId }) => {
         history.push({
             pathname:'/main',
             state:{
-                id: userId
+                id: userId,
+                displayName: displayName
             }})
     } 
 
@@ -28,7 +30,8 @@ const Header = ({ firebaseAuth, userId }) => {
         history.push({
             pathname:`/${event.currentTarget.name}`,
             state: {
-                id: userId
+                id: userId,
+                displayName: displayName,
             }
         })
     }

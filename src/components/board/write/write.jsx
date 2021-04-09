@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useHistory } from 'react-router';
 import Styles from './write.module.css'
 
-const Write = ({ writeCards, userId }) => {
+const Write = ({ writeCards, userId, displayName}) => {
     const titleRef = useRef();
     const textRef = useRef();
     console.log(`write: ${userId}`)
@@ -10,20 +10,23 @@ const Write = ({ writeCards, userId }) => {
     const history = useHistory();
 
     const onClickAdd = () => {
+        const date = new Date();
         const writeCard = {
             id: Date.now(),
             userId: userId,
-            nickname: 'park',
+            nickname: displayName,
             title: titleRef.current.value,
             text: textRef.current.value,
             imgName: 'heo',
-            imgURL: 'heo.heo.com'
+            imgURL: 'heo.heo.com',
+            date: date.toLocaleString()
         }        
         writeCards(writeCard)
         history.push({
             pathname: '/board',
             state: {
-                id: userId
+                id: userId,
+                displayName: displayName
             }
         })
         

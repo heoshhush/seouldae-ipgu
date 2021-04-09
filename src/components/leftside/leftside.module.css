@@ -1,0 +1,23 @@
+.leftSide {
+  min-height: 50em;
+  width: 13em;
+  margin-bottom: 2em;
+  padding: 1em;
+  background-color: white;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.29);
+}
+.titleAndBtn {
+  display: flex;
+  justify-content: center;
+}
+.title {
+  flex-basis: 80%;
+  font-family: "doHyeon";
+}
+.cancelBtn {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 1.2em;
+  outline: none;
+}

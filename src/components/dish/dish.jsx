@@ -6,14 +6,16 @@ import { useHistory } from 'react-router';
 
 const Dish = ({firebaseAuth}) => {
     const history = useHistory();
-    const historyState = history.location.state.id;
-    console.log(`dish : ${historyState}`)
+    const historyState = history.location.state
+    console.log(`dish userId : ${historyState.id}`)
+    console.log(`dish displayName : ${historyState.displayName}`)
 
     return(
         <>
         <Header 
             firebaseAuth={firebaseAuth}
-            userId={historyState}
+            userId={historyState.id}
+            displayName={historyState.displayName}
         />
         <div className={Styles.dish}>
             dish
