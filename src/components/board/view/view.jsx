@@ -1,6 +1,5 @@
 import React from 'react';
 import Styles from './view.module.css'
-import { Route } from 'react-router';
 
 const View = ({card}) => {
     return(

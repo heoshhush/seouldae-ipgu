@@ -6,10 +6,12 @@ import Header from '../header/header';
 import BoardCard from './board-card/boardCard';
 import Styles from './board.module.css';
 import View from './view/view';
+import Write from './write/write';
 
 const Board = ({firebaseAuth}) => {
     const history = useHistory();
     const historyState = history.location.state.id;
+    console.log(`board: ${historyState}`)
 
     const [cards, setCards] = useState({
         1:{
@@ -49,9 +51,11 @@ const Board = ({firebaseAuth}) => {
         })
     })
 
-    // useEffect(() => {
-    //     history.push('/board/list')
-    // }, [])
+    const writeCards = (writeCard) => {
+        const addTo = {...cards};
+        addTo[writeCard.id] = writeCard;
+        setCards(addTo);
+    }
 
     return(
         <>
@@ -75,6 +79,12 @@ const Board = ({firebaseAuth}) => {
                             </Link>
                         ))}
                     </ul>
+                    <div className={Styles.boardBtn}>
+                            <Link to="/board/write">
+                                <button>글쓰기</button>
+                            </Link>
+                    </div>
+                
                 </Route>
                 {Object.keys(cards).map(key=> (
                     <Route path={`/board/view&id=${key}`} exact>
@@ -85,11 +95,22 @@ const Board = ({firebaseAuth}) => {
                     </Route>
                 ))
                 }
-                <div className={Styles.boardBtn}>
-                    <button>글쓰기</button>
+                
+                <div>
+                    <Route path="/board/write">
+                        <Write 
+                            writeCards = {writeCards}
+                            userId = {historyState}
+                        />
+                    </Route>
                 </div>
                 
-            </div>
+                
+                </div>
+                
+
+                    
+                
             
         <Footer />
         </>
