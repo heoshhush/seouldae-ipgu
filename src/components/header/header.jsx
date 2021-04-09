@@ -3,6 +3,7 @@ import Styles from './header.module.css'
 import logo from '../../common/logo/logo_transparent.png'
 import User from '../user/user';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Header = ({ firebaseAuth, userId }) => {
     const [userClick, setUserClick] = useState(false);
@@ -25,17 +26,13 @@ const Header = ({ firebaseAuth, userId }) => {
 
     const movePage = (event) => {
         history.push({
-            pathname:`${event.currentTarget.name}`,
+            pathname:`/${event.currentTarget.name}`,
             state: {
                 id: userId
             }
         })
     }
-
-    //멀쩡하던 userId가 갑자기 왜 undefined으로?
-    // 로그인 직후까진 괜찮은데,
-    // 페이지 옮기자마자 그 로그인 정보가 사라짐.
-    console.log(`header: ${userId}`)
+    
 
 
     return(

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.module.css';
 import Board from './components/board/board';
+import View from './components/board/view/view';
 import Discuss from './components/discuss/discuss';
 import Dish from './components/dish/dish';
 import Login from './components/login/login';
@@ -44,6 +45,7 @@ function App({ firebaseAuth, discussDatabase }) {
             firebaseAuth={firebaseAuth}
             />
           </Route>
+
         </Switch>
       </BrowserRouter>
   );

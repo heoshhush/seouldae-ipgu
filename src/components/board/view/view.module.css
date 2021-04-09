@@ -1,0 +1,19 @@
+.view {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-height: 40em;
+  padding: 2em;
+}
+.title {
+  font-size: 2em;
+  font-family: "roboto";
+}
+.nickname {
+  padding-bottom: 1.1em;
+  border-bottom: 1px solid gray;
+}
+.text {
+  width: 90%;
+  margin-top: 2em;
+}

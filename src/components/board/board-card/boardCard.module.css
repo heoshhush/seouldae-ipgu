@@ -1,0 +1,27 @@
+.boardCard {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid gray;
+  font-size: 1.1em;
+  padding: 0.5em 1em;
+}
+.boardCard:hover {
+  background-color: wheat;
+}
+
+.cardNum {
+  flex-basis: 5%;
+}
+.cardTitle {
+  flex-basis: 80%;
+}
+.userNickname {
+  flex-basis: 5%;
+}
+.viewNum {
+  flex-basis: 5%;
+}
+.stars {
+  flex-basis: 5%;
+}
