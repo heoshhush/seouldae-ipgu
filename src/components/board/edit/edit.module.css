@@ -1,0 +1,14 @@
+.write {
+  display: flex;
+  flex-direction: column;
+}
+.titleInput {
+  margin-top: 2em;
+  height: 2em;
+  padding: 1em;
+  font-family: "roboto";
+}
+.textInput {
+  padding: 1em;
+  font-family: "roboto";
+}

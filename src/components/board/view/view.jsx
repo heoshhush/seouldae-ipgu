@@ -1,5 +1,6 @@
 import React, { useImperativeHandle } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import Styles from './view.module.css'
 
 const View = ({card, database, loadCards, userId}) => {
@@ -16,6 +17,22 @@ const View = ({card, database, loadCards, userId}) => {
         loadCards();
     }
 
+    const onClickEditBtn = () => {
+        history.push({
+            pathname:'/board/edit',
+            state: {
+                id: card.id,
+                userId: card.userId,
+                nickname: card.nickname,
+                title: card.title,
+                text: card.text,
+                imgName: card.imgName,
+                imgURL: card.imgURL,
+                date: card.date
+            }
+        })
+    }
+
     return(
                 <div className={Styles.view}>
                     <div className={Styles.title}>{card.title}</div>
@@ -25,10 +42,12 @@ const View = ({card, database, loadCards, userId}) => {
                     
                     {userId === card.userId && 
                     <div className={Styles.btns}>
-                        <button className={Styles.editBtn}>수정</button>
+                        <button onClick={onClickEditBtn} className={Styles.editBtn}>수정</button>
                         <button onClick={onClickDelete} className={Styles.deleteBtn}>삭제</button>
                     </div>}
-                </div>      
+                </div>
+                
+                
     )
 }
 

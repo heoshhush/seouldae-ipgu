@@ -5,14 +5,15 @@ import Header from '../header/header';
 import Leftside from '../leftside/leftside';
 import Center from './center/center';
 import Styles from './main.module.css'
+import SettingUserInfo from './settingUserInfo/settingUserInfo';
 
 const Main = ({ firebaseAuth }) => {
     const history = useHistory();
     const historyState = history.location.state;
     const [userId, setUserId] = useState(historyState && historyState.id)
-    const [displayName, setDisplayName] = useState(historyState && historyState.displayName)
+    const [displayName, setDisplayName] = useState('')
     console.log(`main displayName :${historyState.displayName}`)
-    console.log(`main user id :${userId}`)
+    console.log(`main user id :${userId}`) 
 
 
     useEffect(() => {
@@ -26,9 +27,31 @@ const Main = ({ firebaseAuth }) => {
             }
         })
     },[])
+
+
+    const updateUserProfile = (text) => {
+        firebaseAuth.authChanged(user => {
+            if(user){
+                user.updateProfile({
+                    displayName: text
+                })
+                setDisplayName(text)
+            }
+        })
+    }
+
+
     
     return(
+
         <main>
+            {displayName === null && 
+                <SettingUserInfo 
+                    updateUserProfile={updateUserProfile}
+                    userId = {userId}
+                    displayName = {displayName}
+                />
+                }
             <div className={Styles.header}>
                 <Header 
                     firebaseAuth={firebaseAuth}
@@ -41,6 +64,7 @@ const Main = ({ firebaseAuth }) => {
                     firebaseAuth={firebaseAuth}
                     userId = {userId}
                     displayName = {displayName}
+                    updateUserProfile = {updateUserProfile}
                 />
                 <Center 
                 />

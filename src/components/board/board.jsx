@@ -5,6 +5,7 @@ import Footer from '../footer/footer';
 import Header from '../header/header';
 import BoardCard from './board-card/boardCard';
 import Styles from './board.module.css';
+import Edit from './edit/edit';
 import View from './view/view';
 import Write from './write/write';
 
@@ -86,16 +87,27 @@ const Board = ({firebaseAuth, database }) => {
                 ))
                 }
                 
-                <div>
-                    <Route path="/board/write">
-                        <Write 
-                            writeCards = {writeCards}
-                            database = {database}
-                            userId = {historyState.id}
-                            displayName = {historyState.displayName}
-                        /> 
-                    </Route>
-                </div>
+                        <div>
+                            <Route path="/board/write">
+                                { historyState && <Write 
+                                    writeCards = {writeCards}
+                                    database = {database}
+                                    userId = {historyState.id}
+                                    displayName = {historyState.displayName}
+                                /> } 
+                            </Route>
+                        </div>
+                        <div>
+                            <Route path="/board/edit">
+                                { historyState && <Edit
+                                    writeCards = {writeCards}
+                                    database = {database}
+                                    userId = {historyState.id}
+                                    displayName = {historyState.displayName}
+                                /> } 
+                            </Route>
+                        </div>
+
                 
                 
                 </div>

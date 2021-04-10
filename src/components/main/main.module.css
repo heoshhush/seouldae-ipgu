@@ -1,6 +1,7 @@
 .header {
   padding-bottom: 7em;
 }
+
 .section {
   display: flex;
   flex-direction: row;
