@@ -19,3 +19,8 @@
   width: 90%;
   margin-top: 2em;
 }
+
+.starClicked {
+  background-color: teal;
+  color: white;
+}

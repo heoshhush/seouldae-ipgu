@@ -10,14 +10,40 @@ a {
 }
 .board {
   min-height: 40em;
-  padding: 6em 3em 2em 3em;
+  padding-top: 6em;
 }
 .boardTitle {
   font-size: 2em;
+  padding-left: 1em;
+  padding-top: 0.5em;
   font-family: "doHyeon";
 }
 .boardCardList {
   min-height: 25em;
   background-color: white;
-  padding: 1em;
+  padding: 0em;
+}
+.index {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid gray;
+  padding: 0.5em 1em 0.5em 0.5em;
+  font-size: 1.1em;
+  background-color: whitesmoke;
+}
+.cardNum {
+  flex-basis: 5%;
+  margin-right: 0.2em;
+}
+.cardTitle {
+  flex-basis: 80%;
+}
+.cardAuthor {
+  flex-basis: 5%;
+}
+.cardViews {
+  flex-basis: 5%;
+}
+.cardStar {
+  flex-basis: 5%;
 }

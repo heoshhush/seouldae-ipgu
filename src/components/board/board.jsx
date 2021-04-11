@@ -54,9 +54,12 @@ const Board = ({firebaseAuth, database }) => {
             <div className={Styles.board}>
                 <div className={Styles.boardTitle}>게시판</div>
                 <Route path='/board' exact>
+                    
                     <ul className={Styles.boardCardList}>
+                        
                        {Object.keys(cards).map(key=> (
                             <Link to= {`/board/view&id=${key}`}>
+                                
                                 <li>
                                     <BoardCard 
                                         key={key}
@@ -66,6 +69,13 @@ const Board = ({firebaseAuth, database }) => {
                                 </li>
                             </Link>
                         ))}
+                        <div className={Styles.index}>
+                            <div className={Styles.cardNum}>번호</div>
+                            <div className={Styles.cardTitle}>제목</div>
+                            <div className={Styles.cardAuthor}>작성자</div>
+                            <div className={Styles.cardViews}>조회수</div>
+                            <div className={Styles.cardStar}>추천수</div>
+                        </div>
                     </ul>
                     <div className={Styles.boardBtn}>
                             <Link to="/board/write">

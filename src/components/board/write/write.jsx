@@ -19,7 +19,8 @@ const Write = ({ writeCards, userId, displayName}) => {
             text: textRef.current.value,
             imgName: 'heo',
             imgURL: 'heo.heo.com',
-            date: date.toLocaleString()
+            date: date.toLocaleString(),
+            star: 0
         }        
         writeCards(writeCard)
         history.push({

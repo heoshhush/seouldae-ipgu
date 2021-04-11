@@ -17,6 +17,12 @@ class Database {
     deleteCard = (path, card) => {
         firebaseDatabase.ref(`${path}/${card.id}`).remove();
     }
+
+    setStars = (card, star) => {
+        firebaseDatabase.ref(`board/${card.id}/star`).set(
+            star
+            )
+    }
 }
 
 export default Database;

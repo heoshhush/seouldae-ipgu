@@ -8,7 +8,7 @@ const BoardCard = ({ card, cardKeys }) => {
             <div className={Styles.cardTitle}>{card.title}</div>
             <div className={Styles.userNickname}>{card.nickname}</div>
             <div className={Styles.viewNum}>1</div>
-            <div className={Styles.stars}>1</div>
+            <div className={Styles.stars}>{card.star}</div>
         </div>
     )
 }
