@@ -1,12 +1,11 @@
 import React, { useImperativeHandle, useState } from 'react';
 import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import Styles from './view.module.css'
 
 const View = ({card, database, loadCards, userId}) => {
-    const [clickStar, setClickStar] = useState(false)
+    const [whoClicked, setWhoClicked] = useState(card.whoClicked)
+    const [clickStar, setClickStar] = useState(Object.keys(whoClicked).includes(userId) === true ? true : false)
     const [star, setStar] = useState(card.star)
-    console.log(`first Star:${star}`)
     
     const history = useHistory();
     const onClickDelete = () => {
@@ -21,24 +20,49 @@ const View = ({card, database, loadCards, userId}) => {
         loadCards();
     }
 
-    const nowStar = clickStar === true ? Styles.starClicked : '';
+    
 
     const onClickStar = () => {
         if(!clickStar){
-            setClickStar(true)
-            console.log(`${clickStar} +1 to ${star}`)
-            setStar(star + 1)
-            database.setStars(card, star);
-        }
-        else if (clickStar){
+            addWhoClicked();
+            updateStars();
+            setClickStar(true);
+        } else if (clickStar){
+            removeWhoClicked();
+            updateStars();
             setClickStar(false)
-            console.log(`${clickStar} -1 to ${star}`)
-            setStar(star - 1)
-            database.setStars(card,star);
         }
-        setClickStar(!clickStar)
     }
 
+    const addWhoClicked = () => {
+        setWhoClicked(whoClicked => {
+            const nowClicked = {...whoClicked};
+            nowClicked[userId] = userId;
+            return nowClicked;
+        })
+        database.whoClickedStars(card, userId)
+    }
+
+
+    const updateStars = () => {
+        setStar(star => {
+            database.loadCard(`board/${card.id}/whoClicked`, 
+            (value) => {
+                database.setStars(card, Object.keys(value).length)
+                return Object.keys(value).length
+                
+            })
+        }) 
+    }
+
+    const removeWhoClicked = () => {
+        setWhoClicked(whoClicked => {
+            const nowClicked = {...whoClicked};
+            delete nowClicked[userId];
+            return(nowClicked);
+        })
+        database.removeWhoClickedStars(card, userId);
+    }
 
     const onClickEditBtn = () => {
         history.push({
@@ -56,6 +80,9 @@ const View = ({card, database, loadCards, userId}) => {
             }
         })
     }
+
+    const nowStar = clickStar === true ? Styles.starClicked : '';
+
 
     return(
                 <div className={Styles.view}>

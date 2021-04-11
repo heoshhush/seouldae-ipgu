@@ -23,6 +23,16 @@ class Database {
             star
             )
     }
+
+    whoClickedStars = (card, userId) => {
+        firebaseDatabase.ref(`board/${card.id}/whoClicked/${userId}`).set(
+            userId
+        )
+    }
+    
+    removeWhoClickedStars = (card, userId) => {
+        firebaseDatabase.ref(`board/${card.id}/whoClicked/${userId}`).remove()
+    }
 }
 
 export default Database;
