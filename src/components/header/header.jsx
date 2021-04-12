@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Styles from './header.module.css'
 import logo from '../../common/logo/logo_transparent.png'
 import User from '../user/user';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
-const Header = ({ firebaseAuth, userId, displayName }) => {
+const Header = ({ firebaseAuth, userId, displayName, getMainUserId, getMainDisplayName }) => {
     const [userClick, setUserClick] = useState(false);
-    console.log(`header: ${userId}`)
-    console.log(`header displayName : ${displayName}`)
-
     const history = useHistory();
+
+    const [headerUserId, setUserId] = useState(userId);
+    const [headerDisplayName, setDisplayName] = useState(displayName);
+
+    console.log(`header: ${headerUserId}`)
+    console.log(`header displayName : ${headerDisplayName}`)
+
+    console.log(firebaseAuth.getUserInfo())
+
+    useEffect(() => {
+        if(!userId){
+        firebaseAuth.authChanged(
+            user => {
+                setUserId(user.uid)
+                setDisplayName(user.displayName)
+            }
+        )
+    }
+    }, [])
+
 
     const onClickLogo = () => {
         history.push({
             pathname:'/main',
             state:{
-                id: userId,
-                displayName: displayName
+                id: headerUserId,
+                displayName: headerDisplayName
             }})
     } 
 
@@ -30,8 +47,8 @@ const Header = ({ firebaseAuth, userId, displayName }) => {
         history.push({
             pathname:`/${event.currentTarget.name}`,
             state: {
-                id: userId,
-                displayName: displayName,
+                id: headerUserId,
+                displayName: headerDisplayName,
             }
         })
     }

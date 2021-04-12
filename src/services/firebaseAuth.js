@@ -28,7 +28,10 @@ class FirebaseAuth {
     }
 
     getUserInfo = () => {
-        return firebaseAuth.currentUser
+        const user = firebaseAuth.currentUser;
+        if(user) {
+            return user
+        }
     }
 
 }

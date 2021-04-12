@@ -9,12 +9,18 @@ const BoardCard = ({ card, userId, cardKeys, updateViews, addViews }) => {
         updateViews(card)
     }
 
+    const toCalCardNum = [...cardKeys].reverse();
+
+    console.log(cardKeys)
+    console.log(toCalCardNum)
+
     
     return(
         <div onClick={onClickCard} className={Styles.boardCard}>
-            <div className={Styles.cardNum}>{cardKeys.indexOf(String(card.id)) +1 }</div>
+            <div className={Styles.cardNum}>{toCalCardNum.indexOf(String(card.id)) +1 }</div>
             <div className={Styles.cardTitle}>{card.title}</div>
             <div className={Styles.userNickname}>{card.nickname}</div>
+            <div className={Styles.cardDate}>{card.date}</div>
             <div className={Styles.viewNum}>{card.views}</div>
             <div className={Styles.stars}>{card.star}</div>
         </div>

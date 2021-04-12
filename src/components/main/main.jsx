@@ -11,7 +11,7 @@ const Main = ({ firebaseAuth }) => {
     const history = useHistory();
     const historyState = history.location.state;
     const [userId, setUserId] = useState(historyState && historyState.id)
-    const [displayName, setDisplayName] = useState('')
+    const [displayName, setDisplayName] = useState(historyState && historyState.displayName)
     console.log(`main displayName :${historyState.displayName}`)
     console.log(`main user id :${userId}`) 
 
@@ -27,6 +27,13 @@ const Main = ({ firebaseAuth }) => {
             }
         })
     },[])
+
+    const getMainUserId = () => {
+        return userId;
+    }
+    const getMainDisplayName = () => {
+        return displayName;
+    }
 
 
     const updateUserProfile = (text) => {
@@ -57,6 +64,8 @@ const Main = ({ firebaseAuth }) => {
                     firebaseAuth={firebaseAuth}
                     userId={userId}
                     displayName={displayName}
+                    getMainUserId={getMainUserId}
+                    getMainDisplayName={getMainDisplayName}
                 />
             </div>
             <section className={Styles.section}>

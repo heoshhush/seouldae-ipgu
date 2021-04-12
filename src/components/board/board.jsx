@@ -13,6 +13,8 @@ const Board = ({firebaseAuth, database }) => {
     const history = useHistory();
     const historyState = history.location.state;
     const [cards, setCards] = useState({})
+    const [boardId, setBoardId] = useState(historyState && historyState.id)
+    const [boardDisplayName, setBoardDIsplayName] = useState(historyState && historyState.displayName)
     const cardKeys = Object.keys(cards)
 
     useEffect(() => {
@@ -66,24 +68,32 @@ const Board = ({firebaseAuth, database }) => {
         <>
         <Header 
             firebaseAuth={firebaseAuth}
-            userId={historyState.id}
-            displayName={historyState.displayName}
+            userId={boardId}
+            displayName={boardDisplayName}
+            database={database}
         />
         
         
             <div className={Styles.board}>
-                <div className={Styles.boardTitle}>게시판</div>
+                
                 <Route path='/board' exact>
                     
                     <ul className={Styles.boardCardList}>
                         
+                        <div className={Styles.boardBtn}>
+                                <Link to="/board/write">
+                                    <button className={Styles.writeBtn}>
+                                        <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
+                                    글쓰기</button>
+                                </Link>
+                        </div>
+                    <div className={Styles.boardCards}>
                        {Object.keys(cards).map(key=> (
-                            <Link to= {`/board/view&id=${key}`}>
-                                
+                            <Link to= {`/board/view&id=${key}`}>  
                                 <li>
                                     <BoardCard 
                                         key={key}
-                                        userId={historyState.id}
+                                        userId={boardId}
                                         card={cards[key]}
                                         cardKeys={cardKeys}
                                         updateViews={updateViews}
@@ -92,19 +102,19 @@ const Board = ({firebaseAuth, database }) => {
                                 </li>
                             </Link>
                         ))}
+                        </div>
                         <div className={Styles.index}>
                             <div className={Styles.cardNum}>번호</div>
                             <div className={Styles.cardTitle}>제목</div>
                             <div className={Styles.cardAuthor}>작성자</div>
+                            <div className={Styles.cardDate}>작성일</div>
                             <div className={Styles.cardViews}>조회수</div>
                             <div className={Styles.cardStar}>추천수</div>
                         </div>
+                        <div className={Styles.boardTitle}>게시판</div>
+
                     </ul>
-                    <div className={Styles.boardBtn}>
-                            <Link to="/board/write">
-                                <button>글쓰기</button>
-                            </Link>
-                    </div>
+  
                 
                 </Route>
                 {Object.keys(cards).map(key=> (
@@ -113,8 +123,8 @@ const Board = ({firebaseAuth, database }) => {
                             key={key}
                             card={cards[key]}
                             database={database}
-                            loadCards={loadCards}
-                            userId={historyState.id}
+                            userId={boardId}
+                            firebaseAuth={firebaseAuth}
                         />
                     </Route>
                 ))

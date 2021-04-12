@@ -1,25 +1,32 @@
-import React, { useImperativeHandle, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import Header from '../../header/header';
 import Styles from './view.module.css'
 
-const View = ({card, database, loadCards, userId}) => {
+const View = ({card, database, loadCards, userId, firebaseAuth}) => {
     const [whoClicked, setWhoClicked] = useState(card.whoClicked)
-    
+    const [viewUserId, setUserId] = useState(userId)
+    const [showPopUp, setShowPopUp] = useState(false)
+
     const getClickStar = () => {
         if(!whoClicked){
             return false;
         } else if(whoClicked){
-            if(Object.keys(whoClicked).includes(userId)){
+            if(Object.keys(whoClicked).includes(viewUserId)){
                 return true;
-            } else if(!Object.keys(whoClicked).includes(userId))
+            } else if(!Object.keys(whoClicked).includes(viewUserId))
                 return false;
         }
     }
 
     const [clickStar, setClickStar] = useState(getClickStar())
-
     const [star, setStar] = useState(card.star)
-    
+
+    useEffect(() => {
+        firebaseAuth.authChanged((user) => {
+            setUserId(user.uid)
+        })
+    },[])
 
 
     const history = useHistory();
@@ -34,6 +41,8 @@ const View = ({card, database, loadCards, userId}) => {
         })
     }
 
+    console.log(viewUserId)
+
 
 
     const onClickStar = () => {
@@ -41,20 +50,22 @@ const View = ({card, database, loadCards, userId}) => {
             addWhoClicked();
             updateStars();
             setClickStar(true);
+            setShowPopUp(true);
         } else if (clickStar){
             removeWhoClicked();
             updateStars();
-            setClickStar(false)
+            setClickStar(false);
+            setShowPopUp(false);
         }
     }
 
     const addWhoClicked = () => {
         setWhoClicked(whoClicked => {
             const nowClicked = {...whoClicked};
-            nowClicked[userId] = userId;
+            nowClicked[viewUserId] = viewUserId;
             return nowClicked;
         })
-        database.whoClickedStars(card, userId)
+        database.whoClickedStars(card, viewUserId)
     }
 
 
@@ -76,10 +87,10 @@ const View = ({card, database, loadCards, userId}) => {
     const removeWhoClicked = () => {
         setWhoClicked(whoClicked => {
             const nowClicked = {...whoClicked};
-            delete nowClicked[userId];
+            delete nowClicked[viewUserId];
             return(nowClicked);
         })
-        database.removeWhoClickedStars(card, userId);
+        database.removeWhoClickedStars(card, viewUserId);
     }
 
     const onClickEditBtn = () => {
@@ -89,7 +100,7 @@ const View = ({card, database, loadCards, userId}) => {
                     pathname:'/board/edit',
                     state: {
                         id: value.id,
-                        userId: value.userId,
+                        userId: value.viewUserId,
                         nickname: value.nickname,
                         title: value.title,
                         text: value.text,
@@ -107,24 +118,39 @@ const View = ({card, database, loadCards, userId}) => {
 
 
     return(
+        <>
                 <div className={Styles.view}>
                     <div className={Styles.title}>{card.title}</div>
                     <div className={Styles.nickname}>{card.nickname}</div>
                     <div className={Styles.date}>{card.date}</div>
                     <div className={Styles.text}>{card.text}</div>
                     
-                    <div >
-                        <button
-                        onClick={onClickStar}
-                        className={`${Styles.star} ${nowStar}`}
-                        >추천</button>
+                    <div className={Styles.likeSection}>
+                        <div className={Styles.likeSectionText}>
+                            추천
+                        </div>
+                        <div likeSectionBtns>
+                            <button
+                            onClick={onClickStar}
+                            className={`${Styles.star} ${nowStar}`}
+                            >
+                                <i className={`fas fa-thumbs-up ${Styles.likeBtn}`}></i>
+                            </button>
+                        </div>
                     </div>
-                    {userId === card.userId && 
+                    {viewUserId === card.userId && 
                     <div className={Styles.btns}>
                         <button onClick={onClickEditBtn} className={Styles.editBtn}>수정</button>
                         <button onClick={onClickDelete} className={Styles.deleteBtn}>삭제</button>
                     </div>}
+                    <div className={Styles.alignPopUp}>
+                    {showPopUp && <div className={Styles.likePopUp}>
+                        이 글을 추천하셨습니다!
+                    </div>
+                    }
+                    </div>
                 </div>
+        </>
                 
                 
     )

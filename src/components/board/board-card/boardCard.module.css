@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid gray;
-  font-size: 1.1em;
+  font-size: 0.9em;
   padding: 0.5em 1em;
 }
 .boardCard:hover {
@@ -11,13 +11,16 @@
 }
 
 .cardNum {
-  flex-basis: 5%;
+  flex-basis: 10%;
 }
 .cardTitle {
-  flex-basis: 80%;
+  flex-basis: 50%;
+}
+.cardDate {
+  flex-basis: 20%;
 }
 .userNickname {
-  flex-basis: 5%;
+  flex-basis: 10%;
 }
 .viewNum {
   flex-basis: 5%;
