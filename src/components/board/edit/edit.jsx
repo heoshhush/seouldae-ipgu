@@ -19,7 +19,9 @@ const Edit = ({writeCards, userId, displayName}) => {
             text: textRef.current.value,
             imgName: historyState.imgName,
             imgURL: historyState.imgURL,
-            date: historyState.date
+            date: historyState.date,
+            star: historyState.star,
+            whoClicked: historyState.whoClicked
         }        
         writeCards(editCard)
         history.push({

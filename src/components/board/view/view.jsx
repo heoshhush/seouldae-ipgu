@@ -4,9 +4,24 @@ import Styles from './view.module.css'
 
 const View = ({card, database, loadCards, userId}) => {
     const [whoClicked, setWhoClicked] = useState(card.whoClicked)
-    const [clickStar, setClickStar] = useState(Object.keys(whoClicked).includes(userId) === true ? true : false)
+    
+    const getClickStar = () => {
+        if(!whoClicked){
+            return false;
+        } else if(whoClicked){
+            if(Object.keys(whoClicked).includes(userId)){
+                return true;
+            } else if(!Object.keys(whoClicked).includes(userId))
+                return false;
+        }
+    }
+
+    const [clickStar, setClickStar] = useState(getClickStar())
+
     const [star, setStar] = useState(card.star)
     
+
+
     const history = useHistory();
     const onClickDelete = () => {
         database.deleteCard('board', card);
@@ -17,10 +32,9 @@ const View = ({card, database, loadCards, userId}) => {
                 displayName: card.nickname
             }
         })
-        loadCards();
     }
 
-    
+
 
     const onClickStar = () => {
         if(!clickStar){
@@ -48,9 +62,13 @@ const View = ({card, database, loadCards, userId}) => {
         setStar(star => {
             database.loadCard(`board/${card.id}/whoClicked`, 
             (value) => {
-                database.setStars(card, Object.keys(value).length)
-                return Object.keys(value).length
-                
+                if(value){
+                    database.setStars(card, Object.keys(value).length)
+                    return Object.keys(value).length
+                } else if (!value){
+                    database.setStars(card, 0);
+                    return 0;
+                }
             })
         }) 
     }
@@ -65,20 +83,24 @@ const View = ({card, database, loadCards, userId}) => {
     }
 
     const onClickEditBtn = () => {
-        history.push({
-            pathname:'/board/edit',
-            state: {
-                id: card.id,
-                userId: card.userId,
-                nickname: card.nickname,
-                title: card.title,
-                text: card.text,
-                imgName: card.imgName,
-                imgURL: card.imgURL,
-                date: card.date,
-                star: card.star
-            }
-        })
+        database.loadCard(`board/${card.id}`,
+            (value) => {
+                history.push({
+                    pathname:'/board/edit',
+                    state: {
+                        id: value.id,
+                        userId: value.userId,
+                        nickname: value.nickname,
+                        title: value.title,
+                        text: value.text,
+                        imgName: value.imgName,
+                        imgURL: value.imgURL,
+                        date: value.date,
+                        star: value.star,
+                        whoClicked: value.whoClicked
+                    }
+                })
+            })
     }
 
     const nowStar = clickStar === true ? Styles.starClicked : '';

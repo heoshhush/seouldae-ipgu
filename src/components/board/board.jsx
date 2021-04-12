@@ -41,6 +41,26 @@ const Board = ({firebaseAuth, database }) => {
         loadCards()
     }, [])
 
+    const addViews = (card, userId) => {
+        const nowWhoViews = {...card.whoViews}
+        nowWhoViews[userId] = userId;
+        database.whoViews(card, userId)
+    }
+
+    const updateViews = (card) => {
+        database.loadCard(`board/${card.id}/whoViews`,
+        (value) => {
+            if(value){
+                database.setViews(card, Object.keys(value).length)
+            } else if (!value){
+                database.setViews(card, 0);
+            }
+        })
+    }
+
+
+
+
 
     return(
         <>
@@ -63,8 +83,11 @@ const Board = ({firebaseAuth, database }) => {
                                 <li>
                                     <BoardCard 
                                         key={key}
+                                        userId={historyState.id}
                                         card={cards[key]}
                                         cardKeys={cardKeys}
+                                        updateViews={updateViews}
+                                        addViews={addViews}
                                     />
                                 </li>
                             </Link>

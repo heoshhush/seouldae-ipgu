@@ -18,6 +18,18 @@ class Database {
         firebaseDatabase.ref(`${path}/${card.id}`).remove();
     }
 
+    setViews = (card, views) => {
+        firebaseDatabase.ref(`board/${card.id}/views`).set(
+            views
+        )
+    }
+
+    whoViews = (card, userId) => {
+        firebaseDatabase.ref(`board/${card.id}/whoViews/${userId}`).set(
+            userId
+        )
+    }
+
     setStars = (card, star) => {
         firebaseDatabase.ref(`board/${card.id}/star`).set(
             star

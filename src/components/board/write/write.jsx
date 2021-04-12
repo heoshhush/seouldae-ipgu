@@ -21,8 +21,9 @@ const Write = ({ writeCards, userId, displayName}) => {
             imgURL: 'heo.heo.com',
             date: date.toLocaleString(),
             star: 0,
-            starClicked: false,
-            whoClicked: {}
+            views: 0,
+            whoClicked: {},
+            whoViews: {}
         }        
         writeCards(writeCard)
         history.push({
