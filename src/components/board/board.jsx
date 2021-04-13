@@ -75,7 +75,20 @@ const Board = ({firebaseAuth, database }) => {
         
         
             <div className={Styles.board}>
-                
+                <div className={Styles.boardHeader}>
+                    <div className={Styles.boardTitle}>
+                        <i className={`fas fa-file-alt ${Styles.boardTitleIcon}`}></i>  
+                        게시판
+                    </div>
+                    <div className={Styles.headerBtns}>
+                        <Link to="/board/write">
+                                    <button className={Styles.writeBtn}>
+                                        <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
+                                    글쓰기</button>
+                        </Link>
+                    </div>
+                    <div className={Styles.headerDivider}></div>
+                </div>
                 <Route path='/board' exact>
                     
                     <ul className={Styles.boardCardList}>
@@ -111,7 +124,7 @@ const Board = ({firebaseAuth, database }) => {
                             <div className={Styles.cardViews}>조회수</div>
                             <div className={Styles.cardStar}>추천수</div>
                         </div>
-                        <div className={Styles.boardTitle}>게시판</div>
+                        
 
                     </ul>
   

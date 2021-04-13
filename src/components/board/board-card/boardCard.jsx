@@ -17,7 +17,7 @@ const BoardCard = ({ card, userId, cardKeys, updateViews, addViews }) => {
     
     return(
         <div onClick={onClickCard} className={Styles.boardCard}>
-            <div className={Styles.cardNum}>{toCalCardNum.indexOf(String(card.id)) +1 }</div>
+            <div className={Styles.cardNum}>{cardKeys.indexOf(String(card.id)) +1 }</div>
             <div className={Styles.cardTitle}>{card.title}</div>
             <div className={Styles.userNickname}>{card.nickname}</div>
             <div className={Styles.cardDate}>{card.date}</div>

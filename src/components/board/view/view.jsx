@@ -108,7 +108,9 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                         imgURL: value.imgURL,
                         date: value.date,
                         star: value.star,
-                        whoClicked: value.whoClicked
+                        views: value.views,
+                        whoClicked: value.whoClicked,
+                        whoViews: value.whoViews
                     }
                 })
             })
@@ -121,8 +123,18 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
         <>
                 <div className={Styles.view}>
                     <div className={Styles.title}>{card.title}</div>
-                    <div className={Styles.nickname}>{card.nickname}</div>
-                    <div className={Styles.date}>{card.date}</div>
+                    <div className={Styles.articleInfo}>
+                        <div className={Styles.nickname}>
+                            <i className={`fas fa-user ${Styles.userIcon}`}></i>
+                            {card.nickname}
+                        </div>
+                        <div className={Styles.articleSubInfo}>
+                            <div className={Styles.stars}>추천수 | {card.star}</div>
+                            <div className={Styles.views}>조회수 | {card.views}</div>
+                            <div className={Styles.date}>작성일  | {card.date}</div>
+                        </div>
+                    </div>
+ 
                     <div className={Styles.text}>{card.text}</div>
                     
                     <div className={Styles.likeSection}>

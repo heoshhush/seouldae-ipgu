@@ -3,24 +3,58 @@
   flex-direction: column;
   background-color: white;
   min-height: 40em;
-  padding: 2em;
+  padding: 1em;
+  padding-top: 0.5em;
+  width: 80%;
+  border: 1px solid gray;
+  border-top: 0;
 }
 .title {
-  font-size: 2em;
+  font-size: 1.3em;
   font-family: "roboto";
   margin-bottom: 0.2em;
+  background-color: whitesmoke;
+  width: 100%;
+  padding: 0.2em;
+}
+.articleInfo {
+  display: flex;
+  flex-direction: row;
+  font-family: "roboto";
+  font-size: 0.8em;
+  padding: 0.6em;
+  padding-top: 0;
+  padding-right: 0;
+  height: 2em;
+  padding-bottom: 0;
+  border-bottom: 1px solid gray;
 }
 .nickname {
-  padding-bottom: 1.1em;
+  flex-basis: 60%;
+}
+.userIcon {
+  margin-right: 0.5em;
+}
+.articleSubInfo {
+  display: flex;
+  flex-direction: row;
+  flex-basis: 40%;
+  justify-content: flex-end;
+}
+.stars {
+  margin-right: 2em;
+}
+.views {
+  margin-right: 2em;
 }
 .date {
   padding-bottom: 2em;
-  border-bottom: 1px solid gray;
+  margin-right: 0.5em;
 }
 .text {
   width: 90%;
   min-height: 15em;
-  padding: 2em;
+  padding: 0.5em;
 }
 
 .likeSection {
@@ -50,7 +84,6 @@
 }
 
 .star:hover {
-  color: green;
   transform: scale(1.1);
 }
 .alignPopUp {
@@ -59,6 +92,7 @@
   align-items: center;
 }
 .likePopUp {
+  display: none;
   border-radius: 1em;
   padding: 1em;
   background-color: rgba(0, 0, 0, 0.5);

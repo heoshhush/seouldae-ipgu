@@ -1,12 +1,16 @@
 .write {
   display: flex;
   flex-direction: column;
+  width: 80%;
 }
 .titleInput {
-  margin-top: 2em;
-  height: 2em;
+  height: 3em;
   padding: 1em;
   font-family: "roboto";
+  border: none;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  background-color: white;
 }
 .textInput {
   padding: 1em;
