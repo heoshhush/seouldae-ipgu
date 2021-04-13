@@ -6,13 +6,14 @@ const Write = ({ writeCards, userId, displayName, cardsLength, loadCards}) => {
     const titleRef = useRef();
     const textRef = useRef();
     const history = useHistory();
+    const historyState = history.location.state;
 
     const onClickAdd = () => {
         const date = new Date();
         const writeCard = {
             id: Date.now(),
             cardNum: parseInt(cardsLength) + 1,
-            userId: userId,
+            userId: userId ? userId : historyState.id,
             nickname: displayName,
             title: titleRef.current.value,
             text: textRef.current.value,

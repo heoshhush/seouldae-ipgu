@@ -16,8 +16,8 @@ const Board = ({firebaseAuth, database }) => {
     const [cards, setCards] = useState({})
     const [boardId, setBoardId] = useState(historyState && historyState.id)
     const [boardDisplayName, setBoardDIsplayName] = useState(historyState && historyState.displayName)
-    
-    
+    console.log(`boardID: ${boardId}`)
+
     const getEndCard = () => {
         database.loadEndElem(value => setEndCard(value))
 
@@ -27,7 +27,6 @@ const Board = ({firebaseAuth, database }) => {
 
     const [endCard, setEndCard] = useState()
     const [cardsLength, setCardsLength] = useState();
-    
     const [buttons, setButtons] = useState([]);
 
 
@@ -61,6 +60,14 @@ const Board = ({firebaseAuth, database }) => {
     }
 
     const onClickPageBtn = (event) => {
+       history.push(
+           {pathname:`/board/page=${event.currentTarget.textContent}`,
+            state:{
+                id: boardId,
+                displayName:boardDisplayName
+        }})
+        
+
         const num = Number(event.currentTarget.textContent)
         database.loadPage(num,
             (value) => {
@@ -93,7 +100,7 @@ const Board = ({firebaseAuth, database }) => {
 
     useEffect(() => {
         getButtons()
-    }, [])
+    }, [cardsLength])
 
     useEffect(() => {
         getEndCard()
@@ -102,6 +109,8 @@ const Board = ({firebaseAuth, database }) => {
     useEffect(() => {
         endCard && setCardsLength(endCard[Object.keys(endCard)[0]].cardNum)
     }, [endCard])
+
+
 
     useEffect(() => {
         firebaseAuth.authChanged(user => {
@@ -220,14 +229,12 @@ const Board = ({firebaseAuth, database }) => {
                                     </Link>
                             </div>
                             <div className={Styles.pages}>
-                                {buttons && buttons.map(button => (
-                                    <Pages 
-                                        loadCards={loadCards}
-                                        button={button}
-                                    />
-                                    //그냥 버튼별 로드 다르게 하면 댐
-                                ))}
-                            </div>
+                            {buttons && buttons.map(button => (
+                                <button onClick={onClickPageBtn}>
+                                    {button}
+                                </button>
+                            ))}
+                        </div>
                         </ul>
                     </Route>
                 
@@ -239,13 +246,12 @@ const Board = ({firebaseAuth, database }) => {
 
                 {Object.keys(cards).map(key=> (
                     <Route path={`/board/view&id=${key}`} exact>
-                        <View 
+                        { historyState && <View 
                             key={key}
                             card={cards[key]}
                             database={database}
-                            userId={boardId}
                             firebaseAuth={firebaseAuth}
-                        />
+                        />}
                     </Route>
                 ))
                 }

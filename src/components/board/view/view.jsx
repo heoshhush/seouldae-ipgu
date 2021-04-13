@@ -5,9 +5,27 @@ import Styles from './view.module.css'
 
 const View = ({card, database, loadCards, userId, firebaseAuth}) => {
     const [whoClicked, setWhoClicked] = useState(card.whoClicked)
-    const [viewUserId, setUserId] = useState(userId)
+    const [viewUserId, setUserId] = useState(card.userId)
     const [showPopUp, setShowPopUp] = useState(false)
 
+    const whoClickedView = card.whoClicked ? card.whoClicked : {};
+    const whoViewsView = card.whoViews ? card.whoViews : {} ; 
+
+    console.log(`id: ${card.id}
+    id: ${card.id},
+    cardNum: ${card.cardNum},
+    userId: ${viewUserId},
+    nickname: ${card.nickname},
+    title: ${card.title},
+    text: ${card.text},
+    imgName: ${card.imgName},
+    imgURL: ${card.imgURL},
+    date:${card.date},
+    star: ${card.star},
+    views: ${card.views},
+    whoClicked: ${whoClickedView},
+    whoViews: ${whoViewsView}
+    `)
     const getClickStar = () => {
         if(!whoClicked){
             return false;
@@ -101,7 +119,7 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                     state: {
                         id: value.id,
                         cardNum: value.cardNum,
-                        userId: value.viewUserId,
+                        userId: viewUserId,
                         nickname: value.nickname,
                         title: value.title,
                         text: value.text,
@@ -110,8 +128,8 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                         date: value.date,
                         star: value.star,
                         views: value.views,
-                        whoClicked: value.whoClicked,
-                        whoViews: value.whoViews
+                        whoClicked: whoClickedView,
+                        whoViews: whoViewsView
                     }
                 })
             })

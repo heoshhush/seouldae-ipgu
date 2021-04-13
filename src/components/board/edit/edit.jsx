@@ -22,6 +22,8 @@ const Edit = ({writeCards, userId, displayName}) => {
             imgURL: historyState.imgURL,
             date: historyState.date,
             star: historyState.star,
+            views: historyState.views,
+            whoViews: historyState.whoViews,
             whoClicked: historyState.whoClicked
         }        
         writeCards(editCard)
