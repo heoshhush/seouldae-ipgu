@@ -3,9 +3,10 @@ import { Route, Router, Switch, useHistory } from 'react-router';
 import { BrowserRouter, Link } from 'react-router-dom';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import BoardCard from './board-card/boardCard';
 import Styles from './board.module.css';
+import BoardCards from './boardCards/boardCards';
 import Edit from './edit/edit';
+import Pages from './pages/pages';
 import View from './view/view';
 import Write from './write/write';
 
@@ -15,15 +16,21 @@ const Board = ({firebaseAuth, database }) => {
     const [cards, setCards] = useState({})
     const [boardId, setBoardId] = useState(historyState && historyState.id)
     const [boardDisplayName, setBoardDIsplayName] = useState(historyState && historyState.displayName)
-    const cardKeys = Object.keys(cards)
+    
+    
+    const getEndCard = () => {
+        database.loadEndElem(value => setEndCard(value))
 
-    useEffect(() => {
-        firebaseAuth.authChanged(user => {
-            if(!user){
-                history.push('/');
-            }
-        })
-    })
+        // 중요!!!!) 얘는 비동기라, 한번에 잡아야하네, 불러 낸뒤 
+        // then으로 이어주지 않는다면 휘발해버린다! 그러니 한번에 함수 실행시키든지 해야함
+}
+
+    const [endCard, setEndCard] = useState()
+    const [cardsLength, setCardsLength] = useState();
+    
+    const [buttons, setButtons] = useState([]);
+
+
 
     const writeCards = (writeCard) => {
         const addTo = {...cards};
@@ -34,14 +41,32 @@ const Board = ({firebaseAuth, database }) => {
     }
 
     const loadCards = () => {
-        database.loadCard("board", (value) => {
-            value && setCards(value);
-        })
+        database.firstPage((value) => {
+            value && setCards(value)
+            }
+        )
     }
 
-    useEffect(() => {
-        loadCards()
-    }, [])
+    const getButtons = () => {
+        setButtons(
+            (buttons) => {
+                const temp = [];
+                const btnNum = Math.round(cardsLength/19)
+                for(let i = 1; i < btnNum+2; i++){
+                    temp.push(i);
+                }
+                return temp;
+            }
+            )
+    }
+
+    const onClickPageBtn = (event) => {
+        const num = Number(event.currentTarget.textContent)
+        database.loadPage(num,
+            (value) => {
+                value && setCards(value)
+            })
+    }
 
     const addViews = (card, userId) => {
         const nowWhoViews = {...card.whoViews}
@@ -61,6 +86,50 @@ const Board = ({firebaseAuth, database }) => {
     }
 
 
+    useEffect(() => {
+        console.log('load cards!')
+        loadCards()
+    }, [])
+
+    useEffect(() => {
+        getButtons()
+    }, [])
+
+    useEffect(() => {
+        getEndCard()
+    },[])
+
+    useEffect(() => {
+        endCard && setCardsLength(endCard[Object.keys(endCard)[0]].cardNum)
+    }, [endCard])
+
+    useEffect(() => {
+        firebaseAuth.authChanged(user => {
+            if(!user){
+                history.push('/');
+            }
+        })
+    })
+
+    // const loadPageCards = (button) => {
+    //     const startNum = button-1;
+    //     const endNum = button*19;
+    //     database.loadPage(
+    //         startNum, endNum,
+    //         (value) => {
+    //         value && setCards(value)
+    //         value && setCardsLength(Object.keys(value).length)
+    //     })
+    // }
+
+    // const onClickPageBtn = (event) => {
+    //     loadPageCards(event.currentTarget.textcontent);
+
+    // }
+
+
+    console.log(`cardLength : ${cardsLength}`)
+    console.log(`buttons:${buttons}`)
 
 
 
@@ -90,33 +159,8 @@ const Board = ({firebaseAuth, database }) => {
                     <div className={Styles.headerDivider}></div>
                 </div>
                 <Route path='/board' exact>
-                    
                     <ul className={Styles.boardCardList}>
-                        
-                        <div className={Styles.boardBtn}>
-                                <Link to="/board/write">
-                                    <button className={Styles.writeBtn}>
-                                        <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
-                                    글쓰기</button>
-                                </Link>
-                        </div>
-                    <div className={Styles.boardCards}>
-                       {Object.keys(cards).map(key=> (
-                            <Link to= {`/board/view&id=${key}`}>  
-                                <li>
-                                    <BoardCard 
-                                        key={key}
-                                        userId={boardId}
-                                        card={cards[key]}
-                                        cardKeys={cardKeys}
-                                        updateViews={updateViews}
-                                        addViews={addViews}
-                                    />
-                                </li>
-                            </Link>
-                        ))}
-                        </div>
-                        <div className={Styles.index}>
+                    <div className={Styles.index}>
                             <div className={Styles.cardNum}>번호</div>
                             <div className={Styles.cardTitle}>제목</div>
                             <div className={Styles.cardAuthor}>작성자</div>
@@ -124,12 +168,75 @@ const Board = ({firebaseAuth, database }) => {
                             <div className={Styles.cardViews}>조회수</div>
                             <div className={Styles.cardStar}>추천수</div>
                         </div>
-                        
-
+                    <div className={Styles.boardCards}>
+                        <BoardCards 
+                            cards={cards}
+                            boardId={boardId}
+                            updateViews={updateViews}
+                            addViews={addViews}
+                        />
+                        </div>
+                        <div className={Styles.boardBtn}>
+                                <Link to="/board/write">
+                                    <button className={Styles.writeBtn}>
+                                        <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
+                                    글쓰기</button>
+                                </Link>
+                        </div>
+                        <div className={Styles.pages}>
+                            {buttons && buttons.map(button => (
+                                <button onClick={onClickPageBtn}>
+                                    {button}
+                                </button>
+                            ))}
+                        </div>
                     </ul>
-  
-                
                 </Route>
+
+                {buttons && buttons.map(button => (
+                    <Route path={`/board/page=${button}`} exact>
+                        <ul className={Styles.boardCardList}>
+                        <div className={Styles.index}>
+                                <div className={Styles.cardNum}>번호</div>
+                                <div className={Styles.cardTitle}>제목</div>
+                                <div className={Styles.cardAuthor}>작성자</div>
+                                <div className={Styles.cardDate}>작성일</div>
+                                <div className={Styles.cardViews}>조회수</div>
+                                <div className={Styles.cardStar}>추천수</div>
+                            </div>
+                        <div className={Styles.boardCards}>
+                            <BoardCards 
+                                cards={cards}
+                                boardId={boardId}
+                                updateViews={updateViews}
+                                addViews={addViews}
+                            />
+                            </div>
+                            <div className={Styles.boardBtn}>
+                                    <Link to="/board/write">
+                                        <button className={Styles.writeBtn}>
+                                            <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
+                                        글쓰기</button>
+                                    </Link>
+                            </div>
+                            <div className={Styles.pages}>
+                                {buttons && buttons.map(button => (
+                                    <Pages 
+                                        loadCards={loadCards}
+                                        button={button}
+                                    />
+                                    //그냥 버튼별 로드 다르게 하면 댐
+                                ))}
+                            </div>
+                        </ul>
+                    </Route>
+                
+                ))}
+
+
+
+
+
                 {Object.keys(cards).map(key=> (
                     <Route path={`/board/view&id=${key}`} exact>
                         <View 
@@ -150,6 +257,8 @@ const Board = ({firebaseAuth, database }) => {
                                     database = {database}
                                     userId = {historyState.id}
                                     displayName = {historyState.displayName}
+                                    cardsLength = {cardsLength}
+                                    loadCards = {loadCards}
                                 /> } 
                             </Route>
                         </div>

@@ -13,6 +13,7 @@ const Edit = ({writeCards, userId, displayName}) => {
     const onClickEdit = () => {
         const editCard = {
             id: historyState.id,
+            cardNum: historyState.cardNum,
             userId: historyState.userId,
             nickname: historyState.nickname,
             title: titleRef.current.value,

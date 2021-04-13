@@ -5,7 +5,7 @@ a {
 .boardCardList {
   list-style: none;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: flex-end;
   width: 80%;
   min-height: 50em;
@@ -49,28 +49,28 @@ a {
   margin-right: 0.3em;
   font-size: 0.85em;
 }
+
 .headerDivider {
   border-bottom: 1px solid gray;
   height: 3em;
   width: 97%;
   margin: auto;
 }
+.index {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid gray;
+  padding: 0.5em 1em 0.5em 0.5em;
+  font-size: 0.9em;
+  background-color: whitesmoke;
+}
+
 .boardBtn {
   display: flex;
   flex-direction: row;
   margin-top: 1em;
-  padding: 2em;
 }
 
-.boardCards {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  min-height: 40em;
-}
-.boardBtn {
-  padding: 0;
-}
 .writeBtn {
   cursor: pointer;
   font-family: "roboto";
@@ -81,14 +81,11 @@ a {
 .writeIcon {
   margin-right: 0.4em;
 }
-.index {
-  display: flex;
-  flex-direction: row;
-  border-bottom: 2px solid gray;
-  padding: 0.5em 1em 0.5em 0.5em;
-  font-size: 0.9em;
-  background-color: whitesmoke;
+.pages {
+  height: 2em;
+  background-color: black;
 }
+
 .cardDate {
   flex-basis: 20%;
 }

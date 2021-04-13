@@ -18,6 +18,8 @@ class Database {
         firebaseDatabase.ref(`${path}/${card.id}`).remove();
     }
 
+    // 조회수 
+
     setViews = (card, views) => {
         firebaseDatabase.ref(`board/${card.id}/views`).set(
             views
@@ -29,6 +31,8 @@ class Database {
             userId
         )
     }
+
+    // 추천수 
 
     setStars = (card, star) => {
         firebaseDatabase.ref(`board/${card.id}/star`).set(
@@ -44,6 +48,38 @@ class Database {
     
     removeWhoClickedStars = (card, userId) => {
         firebaseDatabase.ref(`board/${card.id}/whoClicked/${userId}`).remove()
+    }
+
+    // 게시판에서, 정해진 기준에 따라 불러오기
+    
+
+    firstPage = (myFnc) => {
+        firebaseDatabase.ref(`board/`).limitToFirst(19)
+        .once('value', snapshot => {
+            const value = snapshot.val();
+            myFnc(value)
+        })
+    }
+
+    loadPage = (button, myFnc) => {
+        const startNum = (button-1)*19;
+        const endNum = button*19;
+        const nowPage = firebaseDatabase.ref(`board/`)
+        .orderByChild('cardNum')
+        .startAt(startNum)
+        .endAt(endNum)
+        nowPage.once('value', snapshot => {
+            const value = snapshot.val()
+            myFnc(value)
+        })
+    }
+
+    loadEndElem = (myFnc) => {
+        firebaseDatabase.ref(`board/`).limitToLast(1)
+        .once('value', snapshot => {
+            const value = snapshot.val()
+            myFnc(value)
+        })
     }
 }
 

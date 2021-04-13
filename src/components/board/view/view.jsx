@@ -100,6 +100,7 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                     pathname:'/board/edit',
                     state: {
                         id: value.id,
+                        cardNum: value.cardNum,
                         userId: value.viewUserId,
                         nickname: value.nickname,
                         title: value.title,

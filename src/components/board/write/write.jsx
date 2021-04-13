@@ -1,18 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import Styles from './write.module.css'
 
-const Write = ({ writeCards, userId, displayName}) => {
+const Write = ({ writeCards, userId, displayName, cardsLength, loadCards}) => {
     const titleRef = useRef();
     const textRef = useRef();
-    console.log(`write: ${userId}`)
-
     const history = useHistory();
 
     const onClickAdd = () => {
         const date = new Date();
         const writeCard = {
             id: Date.now(),
+            cardNum: parseInt(cardsLength) + 1,
             userId: userId,
             nickname: displayName,
             title: titleRef.current.value,
@@ -33,6 +32,7 @@ const Write = ({ writeCards, userId, displayName}) => {
                 displayName: displayName
             }
         })
+        loadCards();
         
     }
 
