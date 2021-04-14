@@ -1,9 +1,12 @@
 .write {
   display: flex;
   flex-direction: column;
+  width: 80%;
 }
 .titleInput {
-  margin-top: 2em;
+  border: 1px solid gray;
+  border-top: 0;
+  border-bottom: 0;
   height: 2em;
   padding: 1em;
   font-family: "roboto";
@@ -11,4 +14,22 @@
 .textInput {
   padding: 1em;
   font-family: "roboto";
+}
+.btns {
+  margin-top: 1em;
+}
+.editBtn {
+  cursor: pointer;
+  background-color: white;
+  border: 1.2px solid gray;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-right: 1em;
+}
+.editBtn:hover {
+  background-color: darkslategray;
+  color: white;
+}
+.editIcon {
+  font-size: 1.2em;
+  margin-right: 0.5em;
 }

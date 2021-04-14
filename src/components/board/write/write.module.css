@@ -16,3 +16,22 @@
   padding: 1em;
   font-family: "roboto";
 }
+
+.addBtn {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1.2px solid gray;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-right: 1em;
+  margin-top: 1em;
+  background-color: white;
+}
+.addBtn:hover {
+  background-color: darkslategray;
+  color: white;
+}
+
+.addIcon {
+  font-size: 1.2em;
+  margin-right: 0.5em;
+}

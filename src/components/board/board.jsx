@@ -16,7 +16,6 @@ const Board = ({firebaseAuth, database }) => {
     const [cards, setCards] = useState({})
     const [boardId, setBoardId] = useState(historyState && historyState.id)
     const [boardDisplayName, setBoardDIsplayName] = useState(historyState && historyState.displayName)
-    console.log(`boardID: ${boardId}`)
 
     const getEndCard = () => {
         database.loadEndElem(value => setEndCard(value))
@@ -39,6 +38,7 @@ const Board = ({firebaseAuth, database }) => {
         
     }
 
+
     const loadCards = () => {
         database.firstPage((value) => {
             value && setCards(value)
@@ -50,30 +50,80 @@ const Board = ({firebaseAuth, database }) => {
         setButtons(
             (buttons) => {
                 const temp = [];
-                const btnNum = Math.round(cardsLength/19)
+                const btnNum = Math.floor(cardsLength/19)
+                if(btnNum > 9){
+                    return [1,2,3,4,5,6,7,8,9,10]
+                } else {
                 for(let i = 1; i < btnNum+2; i++){
                     temp.push(i);
                 }
-                return temp;
+                    return temp;
+                }
+                
             }
             )
     }
 
-    const onClickPageBtn = (event) => {
-       history.push(
-           {pathname:`/board/page=${event.currentTarget.textContent}`,
-            state:{
-                id: boardId,
-                displayName:boardDisplayName
-        }})
-        
-
-        const num = Number(event.currentTarget.textContent)
-        database.loadPage(num,
+    const nextPrevBtnLoad = (moveToPage) => {
+        history.push(
+            {pathname:`/board/page=${moveToPage}`,
+             state:{
+                 id: boardId,
+                 displayName:boardDisplayName,
+         }})
+         const endNum = cardsLength - 19 * (Number(moveToPage) - 1)
+         const startNum = cardsLength - 19 * (Number(moveToPage)) + 1 
+         database.loadPage(startNum, endNum, 
             (value) => {
                 value && setCards(value)
             })
     }
+    
+    const onClickPageBtn = (event) => {
+        nextPrevBtnLoad(event.currentTarget.textContent)
+
+    //    history.push(
+    //        {pathname:`/board/page=${event.currentTarget.textContent}`,
+    //         state:{
+    //             id: boardId,
+    //             displayName:boardDisplayName,
+    //     }})
+        
+    //     const btnNum = Number(event.currentTarget.textContent);
+    //     const endNum = cardsLength - 19 * (btnNum - 1)
+    //     const startNum = cardsLength - 19 * (btnNum) + 1
+
+    //     database.loadPage(startNum, endNum,
+    //         (value) => {
+    //             value && setCards(value)
+    //         })
+
+
+    }
+
+
+    const onClickNextBtn = () => {
+        const tempBtns = buttons;
+        const nextBtns = tempBtns.map(btn => btn+10)
+        .filter(btn => btn < Math.floor(cardsLength/19)+2)
+        setButtons(nextBtns)
+        
+        const moveToPage = buttons[9]+1
+        nextPrevBtnLoad(moveToPage);
+    }
+    const onClickPrevBtn = () => {
+            const tempBtns = [];
+            for(let i = 0; i < 10; i++){
+                tempBtns.push(buttons[0]+i)
+            }
+            const prevBtns = tempBtns.map(btn => btn-10)
+            setButtons(prevBtns)
+
+            const moveToPage = buttons[0]-1
+            nextPrevBtnLoad(moveToPage);
+    }
+
+
 
     const addViews = (card, userId) => {
         const nowWhoViews = {...card.whoViews}
@@ -93,8 +143,8 @@ const Board = ({firebaseAuth, database }) => {
     }
 
 
+
     useEffect(() => {
-        console.log('load cards!')
         loadCards()
     }, [])
 
@@ -120,26 +170,7 @@ const Board = ({firebaseAuth, database }) => {
         })
     })
 
-    // const loadPageCards = (button) => {
-    //     const startNum = button-1;
-    //     const endNum = button*19;
-    //     database.loadPage(
-    //         startNum, endNum,
-    //         (value) => {
-    //         value && setCards(value)
-    //         value && setCardsLength(Object.keys(value).length)
-    //     })
-    // }
-
-    // const onClickPageBtn = (event) => {
-    //     loadPageCards(event.currentTarget.textcontent);
-
-    // }
-
-
-    console.log(`cardLength : ${cardsLength}`)
     console.log(`buttons:${buttons}`)
-
 
 
     return(
@@ -158,16 +189,18 @@ const Board = ({firebaseAuth, database }) => {
                         <i className={`fas fa-file-alt ${Styles.boardTitleIcon}`}></i>  
                         게시판
                     </div>
-                    <div className={Styles.headerBtns}>
+                    
+                    
+                    <div className={Styles.headerDivider}></div>
+                </div>
+                <Route path='/board' exact>
+                        <div className={Styles.headerBtns}>
                         <Link to="/board/write">
                                     <button className={Styles.writeBtn}>
                                         <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
                                     글쓰기</button>
                         </Link>
-                    </div>
-                    <div className={Styles.headerDivider}></div>
-                </div>
-                <Route path='/board' exact>
+                        </div>
                     <ul className={Styles.boardCardList}>
                     <div className={Styles.index}>
                             <div className={Styles.cardNum}>번호</div>
@@ -193,11 +226,21 @@ const Board = ({firebaseAuth, database }) => {
                                 </Link>
                         </div>
                         <div className={Styles.pages}>
+                            {buttons[0] !== 1 && <button onClick={onClickPrevBtn} className={Styles.prevBtn}>
+                                 <i className={`fas fa-chevron-left ${Styles.prevBtnIcon}`}></i>
+                            </button>}
                             {buttons && buttons.map(button => (
-                                <button onClick={onClickPageBtn}>
+                                <button 
+                                className={`${Styles.pageBtn}`}
+                                onClick={onClickPageBtn}
+                                
+                                >
                                     {button}
                                 </button>
                             ))}
+                            {buttons.length === 10 && <button onClick={onClickNextBtn} className={Styles.nextBtn}>
+                                <i className={`fas fa-chevron-right ${Styles.nextBtnIcon}`}></i>
+                            </button>}
                         </div>
                     </ul>
                 </Route>
@@ -228,12 +271,22 @@ const Board = ({firebaseAuth, database }) => {
                                         글쓰기</button>
                                     </Link>
                             </div>
+
                             <div className={Styles.pages}>
+                            {buttons[0] !== 1 && <button onClick={onClickPrevBtn} className={Styles.prevBtn}>
+                                 <i className={`fas fa-chevron-left ${Styles.prevBtnIcon}`}></i>
+                            </button>}
+
                             {buttons && buttons.map(button => (
-                                <button onClick={onClickPageBtn}>
-                                    {button}
+                                <button 
+                                    className={`${Styles.pageBtn}`}
+                                    onClick={onClickPageBtn}>
+                                        {button}
                                 </button>
                             ))}
+                            {buttons.length === 10 && <button onClick={onClickNextBtn} className={Styles.nextBtn}>
+                                <i className={`fas fa-chevron-right ${Styles.nextBtnIcon}`}></i>
+                            </button>}
                         </div>
                         </ul>
                     </Route>
@@ -265,6 +318,7 @@ const Board = ({firebaseAuth, database }) => {
                                     displayName = {historyState.displayName}
                                     cardsLength = {cardsLength}
                                     loadCards = {loadCards}
+                                    getEndCard = {getEndCard}
                                 /> } 
                             </Route>
                         </div>

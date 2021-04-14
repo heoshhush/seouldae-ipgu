@@ -54,16 +54,14 @@ class Database {
     
 
     firstPage = (myFnc) => {
-        firebaseDatabase.ref(`board/`).limitToFirst(19)
+        firebaseDatabase.ref(`board/`).limitToLast(19)
         .once('value', snapshot => {
             const value = snapshot.val();
             myFnc(value)
         })
     }
 
-    loadPage = (button, myFnc) => {
-        const startNum = (button-1)*19;
-        const endNum = button*19;
+    loadPage = (startNum, endNum, myFnc) => {
         const nowPage = firebaseDatabase.ref(`board/`)
         .orderByChild('cardNum')
         .startAt(startNum)

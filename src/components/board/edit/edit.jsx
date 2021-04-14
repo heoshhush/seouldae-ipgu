@@ -54,7 +54,10 @@ const Edit = ({writeCards, userId, displayName}) => {
                 </textarea>
             </div>
             <div className={Styles.btns}>
-                <button onClick={onClickEdit} className={Styles.editBtn}>수정</button>
+                <button onClick={onClickEdit} className={Styles.editBtn}>
+                    <i className={`${Styles.editIcon} fas fa-check`}></i>
+                    수정 완료!
+                </button>
             </div>
         </div>
     )

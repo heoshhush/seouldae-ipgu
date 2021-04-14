@@ -56,17 +56,19 @@
   min-height: 15em;
   padding: 0.5em;
 }
-
+.textDivider {
+  border-top: 1px solid gray;
+  padding-top: 1em;
+}
 .likeSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid gray;
   padding-top: 1em;
 }
 .likeSectionText {
-  margin-bottom: 0.3em;
+  margin-bottom: 0.7em;
   font-size: 1.3em;
   font-family: "doHyeon";
 }
@@ -82,17 +84,36 @@
 .starClicked {
   color: green;
 }
-
 .star:hover {
   transform: scale(1.1);
 }
+
+.editBtn,
+.deleteBtn {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1.2px solid gray;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-right: 1em;
+}
+.editBtn:hover,
+.deleteBtn:hover {
+  background-color: darkslategray;
+  color: white;
+}
+.editIcon,
+.deleteIcon {
+  font-size: 1.2em;
+  margin-right: 0.5em;
+}
+
 .alignPopUp {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .likePopUp {
-  display: none;
   border-radius: 1em;
   padding: 1em;
   background-color: rgba(0, 0, 0, 0.5);
@@ -110,16 +131,12 @@
 
 @keyframes beThere {
   0% {
-    background-color: transparent;
-    color: transparent;
+    opacity: 0;
   }
   50% {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    opacity: 1;
   }
   100% {
-    background-color: white;
-    color: white;
-    box-shadow: none;
+    opacity: 0;
   }
 }

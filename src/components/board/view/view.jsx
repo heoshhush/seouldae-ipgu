@@ -46,7 +46,6 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
         })
     },[])
 
-
     const history = useHistory();
     const onClickDelete = () => {
         database.deleteCard('board', card);
@@ -59,16 +58,13 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
         })
     }
 
-    console.log(viewUserId)
-
-
-
     const onClickStar = () => {
         if(!clickStar){
             addWhoClicked();
             updateStars();
             setClickStar(true);
             setShowPopUp(true);
+
         } else if (clickStar){
             removeWhoClicked();
             updateStars();
@@ -156,6 +152,20 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
  
                     <div className={Styles.text}>{card.text}</div>
                     
+
+                    <div className={Styles.textDivider}></div>
+                    {viewUserId === card.userId && 
+                    <div className={Styles.btns}>
+                        <button onClick={onClickEditBtn} className={Styles.editBtn}>
+                            <i className={`${Styles.editIcon} fas fa-keyboard`}></i>
+                            수정
+                        </button>
+                        <button onClick={onClickDelete} className={Styles.deleteBtn}>
+                            <i className={`${Styles.deleteIcon} far fa-trash-alt`}></i>
+                            삭제
+                        </button>
+                    </div>}
+                    
                     <div className={Styles.likeSection}>
                         <div className={Styles.likeSectionText}>
                             추천
@@ -169,11 +179,7 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                             </button>
                         </div>
                     </div>
-                    {viewUserId === card.userId && 
-                    <div className={Styles.btns}>
-                        <button onClick={onClickEditBtn} className={Styles.editBtn}>수정</button>
-                        <button onClick={onClickDelete} className={Styles.deleteBtn}>삭제</button>
-                    </div>}
+
                     <div className={Styles.alignPopUp}>
                     {showPopUp && <div className={Styles.likePopUp}>
                         이 글을 추천하셨습니다!
