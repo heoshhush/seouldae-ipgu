@@ -13,7 +13,14 @@
   color: white;
 }
 .nickname {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   flex-basis: 75%;
+}
+.author {
+  margin-left: 1em;
+  color: yellowgreen;
 }
 .userIcon {
   margin-left: 0.3em;

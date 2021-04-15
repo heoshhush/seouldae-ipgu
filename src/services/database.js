@@ -82,15 +82,15 @@ class Database {
 
     // 게시판에서, 댓글 관련
 
-    saveComment = (card,text) => {
+    saveComment = (card, userId, nickname, text) => {
         const date = new Date();
         firebaseDatabase.ref(`board/${card.id}/comment/${Date.now()}`).set(
             {
                 key:Date.now(),    
-                id:card.userId,
+                id: userId,
                 text:text,
                 date: date.toLocaleString(),
-                nickname: card.nickname 
+                nickname: nickname
             }
         )
     }
@@ -113,6 +113,10 @@ class Database {
                 nickname: comment.nickname
             }
         )
+    }
+
+    deleteComment = (card, comment) => {
+        firebaseDatabase.ref(`board/${card.id}/comment/${comment.key}`).remove();
     }
 }
 

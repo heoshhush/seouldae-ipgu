@@ -4,7 +4,7 @@ import ShowComment from './showComment/showComment';
 import Styles from './view.module.css'
 import WriteComment from './writeComment/writeComment';
 
-const View = ({card, database, firebaseAuth}) => {
+const View = ({ card, database, firebaseAuth, userId, displayName }) => {
     const history = useHistory();
     const historyState = history.location.state;
     const [whoClicked, setWhoClicked] = useState(card.whoClicked)
@@ -195,6 +195,8 @@ const View = ({card, database, firebaseAuth}) => {
                     card={viewCard}
                     database={database}
                     loadComments={loadComments}
+                    userId={userId}
+                    displayName={displayName}
                  />
 
                  {Object.keys(comments).map(key=>(
@@ -204,6 +206,7 @@ const View = ({card, database, firebaseAuth}) => {
                         database={database}
                         loadComments={loadComments}
                         card={viewCard}
+                        userId={userId}
                      />
                  ))}
             </div>    

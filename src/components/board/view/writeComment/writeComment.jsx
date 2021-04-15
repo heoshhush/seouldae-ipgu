@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import Styles from './writeComment.module.css'
 
-const WriteComment = ({ card, database, loadComments }) => {
+const WriteComment = ({ card, database, loadComments, userId, displayName }) => {
     const formRef = useRef();
     const textRef= useRef();
     
     const onClickAdd = (event) => {
         event.preventDefault();
         const value = textRef.current.value;
-        database.saveComment(card, value)
+        database.saveComment(card, userId, displayName, value)
         formRef.current.reset();
         loadComments();
     }
