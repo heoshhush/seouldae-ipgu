@@ -207,6 +207,7 @@ const View = ({ card, database, firebaseAuth, userId, displayName }) => {
                         loadComments={loadComments}
                         card={viewCard}
                         userId={userId}
+                        displayName={displayName}
                      />
                  ))}
             </div>    

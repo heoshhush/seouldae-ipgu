@@ -118,6 +118,46 @@ class Database {
     deleteComment = (card, comment) => {
         firebaseDatabase.ref(`board/${card.id}/comment/${comment.key}`).remove();
     }
+
+    // 게시판에서, 대댓글
+
+    saveNComment = (card, comment, userId, nickname, text) => {
+        const date = new Date();
+        firebaseDatabase.ref(`board/${card.id}/comment/${comment.key}/ncomment/${Date.now()}`).set(
+            {
+                key:Date.now(),    
+                id: userId,
+                text:text,
+                date: date.toLocaleString(),
+                nickname: nickname
+            }
+        )
+    }
+
+    loadNComment = (card, comment, myFnc) => {
+        firebaseDatabase.ref(`board/${card.id}/comment/${comment.key}/ncomment/`).once(
+            'value', snapshot => {
+                const value = snapshot.val() ? snapshot.val() : {}
+                myFnc(value);
+            }
+        )
+    }
+
+    deleteNComment = (card, comment, nComment) => {
+        firebaseDatabase.ref(`board/${card.id}/comment/${comment.key}/ncomment/${nComment.key}`).remove();
+    }
+
+    updateNComment = (card, comment, nComment, text) => {
+        firebaseDatabase.ref(`board/${card.id}/comment/${comment.key}/ncomment/${nComment.key}`).set(
+            {
+                key: nComment.key,
+                id: nComment.id,
+                text:text,
+                date: nComment.date,
+                nickname: nComment.nickname
+            }
+        )
+    }
 }
 
 export default Database;

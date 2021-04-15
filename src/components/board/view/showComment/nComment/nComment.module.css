@@ -1,10 +1,16 @@
-.comment {
+.nComment {
+  display: flex;
+  flex-direction: column;
   border: 1px solid gray;
-  margin: 1em;
   min-height: 3em;
+  margin: 0 0 0.5em 4em;
+  border: none;
+  border-left: 10px solid gray;
+  border-bottom: 1px solid gray;
 }
 .firstLine {
   display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   font-size: 0.9em;
@@ -84,17 +90,6 @@
 .editCompleteBtn:hover {
   background-color: darkslategray;
   color: white;
-}
-
-.nComment {
-  width: 98%;
-  margin: auto;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  display: flex;
-  flex-direction: row;
-  border-top: 1px solid gray;
-  justify-content: space-between;
 }
 .nCommentInput {
   flex-basis: 90%;
