@@ -1,0 +1,71 @@
+.comment {
+  border: 1px solid gray;
+  margin: 1em;
+  min-height: 3em;
+}
+.firstLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 0.9em;
+  padding: 0.3em 1em 0.3em 1em;
+  background-color: darkslategray;
+  color: white;
+}
+.nickname {
+  flex-basis: 75%;
+}
+.userIcon {
+  margin-left: 0.3em;
+  font-size: 0.9em;
+}
+.date {
+  margin-right: 1em;
+}
+.editBtn,
+.deleteBtn {
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  border: 1px solid gray;
+  margin-left: 1em;
+}
+.editBtn:hover,
+.deleteBtn:hover {
+  background-color: white;
+  color: black;
+}
+
+.secondLine {
+  background-color: white;
+}
+.text {
+  padding: 1em;
+}
+.edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.editInput {
+  width: 100%;
+  min-height: 3em;
+  padding: 1em;
+  font-family: "roboto";
+  font-size: 1.05em;
+  border: 0;
+  margin: 0;
+}
+.editCompleteBtn {
+  cursor: pointer;
+  flex-basis: 10%;
+  background-color: whitesmoke;
+  color: black;
+  border: 1px solid gray;
+  border-top: 0;
+  border-bottom: 0;
+}
+.editCompleteBtn:hover {
+  background-color: darkslategray;
+  color: white;
+}

@@ -5,7 +5,6 @@ import Styles from './edit.module.css';
 const Edit = ({writeCards, userId, displayName}) => {
     const titleRef = useRef();
     const textRef = useRef();
-    console.log(`edit: ${userId}`)
 
     const history = useHistory();
     const historyState = history.location.state;
@@ -24,14 +23,15 @@ const Edit = ({writeCards, userId, displayName}) => {
             star: historyState.star,
             views: historyState.views,
             whoViews: historyState.whoViews,
-            whoClicked: historyState.whoClicked
+            whoClicked: historyState.whoClicked,
+            comment: historyState.comment
         }        
         writeCards(editCard)
         history.push({
             pathname: '/board',
             state: {
-                id: userId,
-                displayName: displayName
+                id: historyState.userId,
+                displayName: historyState.nickname
             }
         })
         
@@ -56,7 +56,7 @@ const Edit = ({writeCards, userId, displayName}) => {
             <div className={Styles.btns}>
                 <button onClick={onClickEdit} className={Styles.editBtn}>
                     <i className={`${Styles.editIcon} fas fa-check`}></i>
-                    수정 완료!
+                    수정 완료
                 </button>
             </div>
         </div>

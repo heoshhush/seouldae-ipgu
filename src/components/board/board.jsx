@@ -28,7 +28,41 @@ const Board = ({firebaseAuth, database }) => {
     const [cardsLength, setCardsLength] = useState();
     const [buttons, setButtons] = useState([]);
 
-
+    const getState = (card) => {
+        return {
+            id: card.id,
+            cardNum: card.cardNum,
+            userId: card.userId,
+            nickname: card.nickname,
+            title: card.title,
+            text: card.text,
+            imgName: card.imgName,
+            imgURL: card.imgURL,
+            date: card.date,
+            star: card.star,
+            views: card.views,
+            whoClicked: card.whoClicked,
+            whoViews: card.whoViews,
+            comment: card.comment
+        }
+    }
+    const onClickCard = (URL, history, card) => {
+        history.push({
+            pathname:`${URL}`,
+            state: getState(card)
+        })
+    }
+    
+    const onClickWrite = () => {
+        history.push({
+            pathname:'/board/write',
+            state: {
+                cardsLength: cardsLength,
+                userId: boardId,
+                nickname: boardDisplayName,
+            }
+        })
+    }
 
     const writeCards = (writeCard) => {
         const addTo = {...cards};
@@ -195,11 +229,11 @@ const Board = ({firebaseAuth, database }) => {
                 </div>
                 <Route path='/board' exact>
                         <div className={Styles.headerBtns}>
-                        <Link to="/board/write">
-                                    <button className={Styles.writeBtn}>
+                                    <button 
+                                        onClick={onClickWrite}
+                                        className={Styles.writeBtn}>
                                         <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
                                     글쓰기</button>
-                        </Link>
                         </div>
                     <ul className={Styles.boardCardList}>
                     <div className={Styles.index}>
@@ -216,14 +250,15 @@ const Board = ({firebaseAuth, database }) => {
                             boardId={boardId}
                             updateViews={updateViews}
                             addViews={addViews}
+                            onClickCard={onClickCard}
                         />
                         </div>
                         <div className={Styles.boardBtn}>
-                                <Link to="/board/write">
-                                    <button className={Styles.writeBtn}>
+                                    <button 
+                                    onClick={onClickWrite}
+                                    className={Styles.writeBtn}>
                                         <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
                                     글쓰기</button>
-                                </Link>
                         </div>
                         <div className={Styles.pages}>
                             {buttons[0] !== 1 && <button onClick={onClickPrevBtn} className={Styles.prevBtn}>
@@ -257,7 +292,8 @@ const Board = ({firebaseAuth, database }) => {
                                 <div className={Styles.cardStar}>추천수</div>
                             </div>
                         <div className={Styles.boardCards}>
-                            <BoardCards 
+                            <BoardCards
+                                onClickCard={onClickCard} 
                                 cards={cards}
                                 boardId={boardId}
                                 updateViews={updateViews}
@@ -265,11 +301,10 @@ const Board = ({firebaseAuth, database }) => {
                             />
                             </div>
                             <div className={Styles.boardBtn}>
-                                    <Link to="/board/write">
-                                        <button className={Styles.writeBtn}>
+                                        <button className={Styles.writeBtn}
+                                            onClick={onClickWrite}>
                                             <i className={`fas fa-pen ${Styles.writeIcon}`}></i>
                                         글쓰기</button>
-                                    </Link>
                             </div>
 
                             <div className={Styles.pages}>

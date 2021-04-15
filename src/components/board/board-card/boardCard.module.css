@@ -6,6 +6,11 @@
   font-size: 0.9em;
   padding: 0.5em 1em;
 }
+.commentNum {
+  margin-left: 0.5em;
+  font-size: 0.9em;
+  color: gray;
+}
 .boardCard:hover {
   background-color: wheat;
 }

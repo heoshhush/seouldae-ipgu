@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import Styles from './write.module.css'
 
-const Write = ({ writeCards, userId, displayName, cardsLength, loadCards, getEndCard}) => {
+const Write = ({ writeCards, loadCards, getEndCard}) => {
     const titleRef = useRef();
     const textRef = useRef();
     const history = useHistory();
     const historyState = history.location.state;
-    console.log(cardsLength)
 
     const onClickAdd = () => {
         const title = titleRef.current.value;
@@ -23,9 +22,9 @@ const Write = ({ writeCards, userId, displayName, cardsLength, loadCards, getEnd
         const date = new Date();
         const writeCard = {
             id: Date.now(),
-            cardNum: parseInt(cardsLength) + 1,
-            userId: userId ? userId : historyState.id,
-            nickname: displayName,
+            cardNum: parseInt(historyState.cardsLength) + 1,
+            userId: historyState.userId,
+            nickname: historyState.nickname,
             title: titleRef.current.value,
             text: textRef.current.value,
             imgName: 'heo',
@@ -34,14 +33,16 @@ const Write = ({ writeCards, userId, displayName, cardsLength, loadCards, getEnd
             star: 0,
             views: 0,
             whoClicked: {},
-            whoViews: {}
+            whoViews: {},
+            comment: {}
         }        
+        console.log(writeCard)
         writeCards(writeCard)
         history.push({
             pathname: '/board',
             state: {
-                id: userId,
-                displayName: displayName
+                id: historyState.userId,
+                displayName: historyState.nickname
             }
         })
         loadCards();

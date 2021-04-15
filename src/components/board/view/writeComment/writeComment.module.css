@@ -1,0 +1,46 @@
+.container {
+  background-color: white;
+  border-bottom: 1px sold gray;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  padding: 1em;
+}
+.commentDivider {
+  height: 3em;
+  border-bottom: 1px solid gray;
+  padding: 0.3em;
+}
+.commentIcon {
+  font-size: 1.2em;
+  margin-right: 0.7em;
+}
+.commentDivider span {
+  font-size: 1.5em;
+  font-family: "roboto";
+}
+.title {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.writeComment {
+  display: flex;
+  flex-direction: row;
+}
+
+.text {
+  flex-basis: 90%;
+  resize: none;
+  font-size: 1.2em;
+  padding: 0.5em;
+}
+.addComment {
+  cursor: pointer;
+  flex-basis: 10%;
+  font-size: 1.1em;
+  background-color: white;
+  border: 1px solid gray;
+}
+.addComment:hover {
+  background-color: darkslategray;
+  color: white;
+}

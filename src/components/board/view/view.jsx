@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import Header from '../../header/header';
+import ShowComment from './showComment/showComment';
 import Styles from './view.module.css'
+import WriteComment from './writeComment/writeComment';
 
-const View = ({card, database, loadCards, userId, firebaseAuth}) => {
+const View = ({card, database, firebaseAuth}) => {
+    const history = useHistory();
+    const historyState = history.location.state;
     const [whoClicked, setWhoClicked] = useState(card.whoClicked)
     const [viewUserId, setUserId] = useState(card.userId)
     const [showPopUp, setShowPopUp] = useState(false)
+    const [comments, setComments] = useState({})
+    const [viewCard, setViewCard] = useState(historyState && historyState)
+    const whoClickedView = viewCard ? viewCard.whoClicked : {};
+    const whoViewsView = viewCard ? viewCard.whoViews : {};
 
-    const whoClickedView = card.whoClicked ? card.whoClicked : {};
-    const whoViewsView = card.whoViews ? card.whoViews : {} ; 
-
-    console.log(`id: ${card.id}
-    id: ${card.id},
-    cardNum: ${card.cardNum},
-    userId: ${viewUserId},
-    nickname: ${card.nickname},
-    title: ${card.title},
-    text: ${card.text},
-    imgName: ${card.imgName},
-    imgURL: ${card.imgURL},
-    date:${card.date},
-    star: ${card.star},
-    views: ${card.views},
-    whoClicked: ${whoClickedView},
-    whoViews: ${whoViewsView}
-    `)
     const getClickStar = () => {
         if(!whoClicked){
             return false;
@@ -37,8 +26,10 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
         }
     }
 
+
     const [clickStar, setClickStar] = useState(getClickStar())
-    const [star, setStar] = useState(card.star)
+    const [star, setStar] = useState(viewCard.star)
+
 
     useEffect(() => {
         firebaseAuth.authChanged((user) => {
@@ -46,14 +37,13 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
         })
     },[])
 
-    const history = useHistory();
     const onClickDelete = () => {
-        database.deleteCard('board', card);
+        database.deleteCard('board', viewCard);
         history.push({
             pathname: '/board',
             state: {
-                id: card.userId,
-                displayName: card.nickname
+                id: viewCard.userId,
+                displayName: viewCard.nickname
             }
         })
     }
@@ -79,19 +69,19 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
             nowClicked[viewUserId] = viewUserId;
             return nowClicked;
         })
-        database.whoClickedStars(card, viewUserId)
+        database.whoClickedStars(viewCard, viewUserId)
     }
 
 
     const updateStars = () => {
         setStar(star => {
-            database.loadCard(`board/${card.id}/whoClicked`, 
+            database.loadCard(`board/${viewCard.id}/whoClicked`, 
             (value) => {
                 if(value){
-                    database.setStars(card, Object.keys(value).length)
+                    database.setStars(viewCard, Object.keys(value).length)
                     return Object.keys(value).length
                 } else if (!value){
-                    database.setStars(card, 0);
+                    database.setStars(viewCard, 0);
                     return 0;
                 }
             })
@@ -104,11 +94,11 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
             delete nowClicked[viewUserId];
             return(nowClicked);
         })
-        database.removeWhoClickedStars(card, viewUserId);
+        database.removeWhoClickedStars(viewCard, viewUserId);
     }
 
     const onClickEditBtn = () => {
-        database.loadCard(`board/${card.id}`,
+        database.loadCard(`board/${viewCard.id}`,
             (value) => {
                 history.push({
                     pathname:'/board/edit',
@@ -124,37 +114,49 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                         date: value.date,
                         star: value.star,
                         views: value.views,
-                        whoClicked: whoClickedView,
-                        whoViews: whoViewsView
+                        whoClicked: value.whoClicked? value.whoClicked : {},
+                        whoViews: value.whoViews ? value.whoViews : {},
+                        comment: value.comment ? value.comment : {}
                     }
                 })
             })
     }
 
-    const nowStar = clickStar === true ? Styles.starClicked : '';
 
+    const loadComments = () => {
+        database.loadComment(viewCard, (value) => {
+            setComments(value);
+        })
+    }
+    useEffect(() => {
+        loadComments(viewCard)}
+        ,[])
+
+    const nowStar = clickStar === true ? Styles.starClicked : '';
 
     return(
         <>
                 <div className={Styles.view}>
-                    <div className={Styles.title}>{card.title}</div>
+                    <div className={Styles.title}>{viewCard.title}</div>
                     <div className={Styles.articleInfo}>
                         <div className={Styles.nickname}>
                             <i className={`fas fa-user ${Styles.userIcon}`}></i>
-                            {card.nickname}
+                            {viewCard.nickname}
                         </div>
                         <div className={Styles.articleSubInfo}>
-                            <div className={Styles.stars}>추천수 | {card.star}</div>
-                            <div className={Styles.views}>조회수 | {card.views}</div>
-                            <div className={Styles.date}>작성일  | {card.date}</div>
+                            <div className={Styles.stars}>추천수 | {viewCard.star}</div>
+                            <div className={Styles.views}>조회수 | {viewCard.views}</div>
+                            <div className={Styles.date}>작성일  | {viewCard.date}</div>
                         </div>
                     </div>
  
-                    <div className={Styles.text}>{card.text}</div>
+                    <div className={Styles.text}>
+                            <pre className={Styles.textPre}>{viewCard.text}</pre>
+                        </div>
                     
 
                     <div className={Styles.textDivider}></div>
-                    {viewUserId === card.userId && 
+                    {viewUserId === viewCard.userId && 
                     <div className={Styles.btns}>
                         <button onClick={onClickEditBtn} className={Styles.editBtn}>
                             <i className={`${Styles.editIcon} fas fa-keyboard`}></i>
@@ -165,7 +167,7 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                             삭제
                         </button>
                     </div>}
-                    
+
                     <div className={Styles.likeSection}>
                         <div className={Styles.likeSectionText}>
                             추천
@@ -183,10 +185,31 @@ const View = ({card, database, loadCards, userId, firebaseAuth}) => {
                     <div className={Styles.alignPopUp}>
                     {showPopUp && <div className={Styles.likePopUp}>
                         이 글을 추천하셨습니다!
-                    </div>
+                                </div>
                     }
                     </div>
-                </div>
+                    </div>
+
+            <div className={Styles.comment}>
+                 <WriteComment 
+                    card={viewCard}
+                    database={database}
+                    loadComments={loadComments}
+                 />
+
+                 {Object.keys(comments).map(key=>(
+                     <ShowComment 
+                        key={key}
+                        comment={comments[key]}
+                        database={database}
+                        loadComments={loadComments}
+                        card={viewCard}
+                     />
+                 ))}
+            </div>    
+            
+
+                
         </>
                 
                 

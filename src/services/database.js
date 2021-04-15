@@ -9,7 +9,7 @@ class Database {
 
     loadCard = (path, myFunction) => {
         firebaseDatabase.ref(`${path}`).once('value', snapshot => {
-            const value = snapshot.val();
+            const value = snapshot.val() ? snapshot.val() : {};
             myFunction(value);
         })
         }
@@ -56,7 +56,7 @@ class Database {
     firstPage = (myFnc) => {
         firebaseDatabase.ref(`board/`).limitToLast(19)
         .once('value', snapshot => {
-            const value = snapshot.val();
+            const value = snapshot.val() ? snapshot.val() : {};
             myFnc(value)
         })
     }
@@ -78,6 +78,41 @@ class Database {
             const value = snapshot.val()
             myFnc(value)
         })
+    }
+
+    // 게시판에서, 댓글 관련
+
+    saveComment = (card,text) => {
+        const date = new Date();
+        firebaseDatabase.ref(`board/${card.id}/comment/${Date.now()}`).set(
+            {
+                key:Date.now(),    
+                id:card.userId,
+                text:text,
+                date: date.toLocaleString(),
+                nickname: card.nickname 
+            }
+        )
+    }
+
+    loadComment = (card, myFnc) => {
+        firebaseDatabase.ref(`board/${card.id}/comment/`)
+        .once('value', snapshot => {
+            const value = snapshot.val() ? snapshot.val() : {}
+            myFnc(value)
+        })
+    }  
+
+    updateComment = (card, comment, text) => {
+        firebaseDatabase.ref(`board/${card.id}/comment/${comment.key}`).set(
+            {
+                key: comment.key,
+                id:comment.id,
+                text:text,
+                date: comment.date,
+                nickname: comment.nickname
+            }
+        )
     }
 }
 
