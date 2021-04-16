@@ -154,7 +154,7 @@ class Database {
                 id: nComment.id,
                 text:text,
                 date: nComment.date,
-                nickname: nComment.nickname
+            nickname: nComment.nickname
             }
         )
     }

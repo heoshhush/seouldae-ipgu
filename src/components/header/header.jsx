@@ -15,7 +15,6 @@ const Header = ({ firebaseAuth, userId, displayName, getMainUserId, getMainDispl
     console.log(`header: ${headerUserId}`)
     console.log(`headerdisplayName : ${headerDisplayName}`)
     console.log(`in header, displayName props : ${displayName}`)
-
     console.log(firebaseAuth.getUserInfo())
 
     useEffect(() => {

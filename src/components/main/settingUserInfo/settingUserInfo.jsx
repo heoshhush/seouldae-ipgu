@@ -37,7 +37,10 @@ const SettingUserInfo = ({ updateUserProfile, userId, displayName }) => {
     return(
         <div className={Styles.setUserNameBg}>
             <div className={Styles.setUserName}>
-                <div className={Styles.title}>닉네임을 설정해주세요</div>
+                <div className={Styles.title}>
+                    <div className={Styles.titleFirst}>환영합니다 </div>
+                    <div className={Styles.titleSecond}>먼저, 닉네임을 설정해주세요!</div>
+                </div>
                 <form className={Styles.userInfoInputs}>
                     <input ref={inputRef} className={Styles.displayNameInput} type="text"/>
                     <div ref={warnRef} className={Styles.warn}></div>

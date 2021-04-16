@@ -76,6 +76,7 @@
   cursor: pointer;
   margin-top: 1em;
   margin-right: 1em;
+  width: 7em;
   font-size: 1.5em;
   font-weight: bold;
   border: none;
@@ -117,7 +118,8 @@
   text-align: center;
 }
 
-.signUpBg {
+.signUpBg,
+.emailLoginBg {
   display: flex;
   justify-content: center;
   padding-top: 9em;
@@ -127,10 +129,22 @@
   height: 140em;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.7);
+  animation-name: fade-in;
+  animation-duration: 0.7s;
 }
-.signUp {
-  width: 50%;
-  height: 35em;
+.signUp,
+.emailLogin {
+  width: 40%;
+  height: 30em;
   background-color: white;
   border-radius: 1em;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

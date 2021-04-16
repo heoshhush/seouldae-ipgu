@@ -19,9 +19,9 @@ const View = ({ card, database, firebaseAuth, userId, displayName }) => {
         if(!whoClicked){
             return false;
         } else if(whoClicked){
-            if(Object.keys(whoClicked).includes(viewUserId)){
+            if(Object.keys(whoClicked).includes(userId)){
                 return true;
-            } else if(!Object.keys(whoClicked).includes(viewUserId))
+            } else if(!Object.keys(whoClicked).includes(userId))
                 return false;
         }
     }

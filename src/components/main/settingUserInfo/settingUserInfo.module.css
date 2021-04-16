@@ -8,6 +8,8 @@
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 150%;
+  animation-name: fade-in;
+  animation-duration: 0.7s;
 }
 .setUserName {
   display: flex;
@@ -21,17 +23,26 @@
   border-radius: 1em;
   background-color: #74ebd5;
   background-image: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+  animation-name: fade-in;
+  animation-duration: 0.7s;
 }
 .title {
   font-size: 2em;
   font-family: "doHyeon";
   color: white;
+  text-align: center;
+}
+.titleFirst {
+  border-bottom: 3px solid white;
+}
+.titleSecond {
+  font-size: 0.8em;
 }
 .userInfoInputs {
   display: flex;
   flex-direction: column;
   width: 70%;
-  margin-top: 2em;
+  margin-top: 1em;
 }
 .displayNameInput {
   width: 100%;
@@ -47,7 +58,7 @@
 .warn {
   color: red;
   text-align: center;
-  margin-top: 1em;
+  margin-top: 0.5em;
   font-family: "doHyeon";
   font-size: 1.2em;
 }
@@ -56,7 +67,7 @@
   border: none;
   padding: 0.2em;
   flex-basis: 20%;
-  margin-top: 1.5em;
+  margin-top: 1em;
   font-size: 1.5em;
   font-family: "doHyeon";
   border-radius: 1em;
@@ -65,4 +76,13 @@
 .displayNameSubmit:hover {
   background-color: black;
   color: white;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

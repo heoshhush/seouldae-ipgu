@@ -4,9 +4,11 @@ import Styles from './login.module.css';
 import logo from '../../common/logo/logo_transparent.png'
 import Footer from '../footer/footer';
 import SignUp from './signUp/signUp';
+import EmailLogin from './emailLogin/emailLogin';
 
 const Login = ({ firebaseAuth }) => {
     const [signUp, setSignUp] = useState(false);
+    const [loginNow, setLoginNow] = useState(false);
     const history = useHistory();
 
     const onClick = (event) => {
@@ -16,7 +18,13 @@ const Login = ({ firebaseAuth }) => {
 
     const onClickSignUp = () => {
         const sign = signUp ? false : true;
+        window.scrollTo(0,0)
         setSignUp(sign); 
+    }
+
+    const onClickEmailLogin = () => {
+        const login = loginNow ? false : true;
+        setLoginNow(login);
     }
 
     useEffect(() => {
@@ -28,7 +36,6 @@ const Login = ({ firebaseAuth }) => {
                         id:user.uid,
                         displayName:user.displayName
                     }
-                    
                 })
             }
         }) 
@@ -55,6 +62,10 @@ const Login = ({ firebaseAuth }) => {
                         <section className={Styles.login}>
                             <div className={Styles.loginTitle}>Login With</div>
                             <div className={Styles.loginBtns}>
+                                <button onClick={onClickEmailLogin} className={Styles.googleLogin}>
+                                    Email 
+                                    <i className={`fas fa-envelope-square ${Styles.googleIcon}`}></i>
+                                </button>
                                 <button onClick={onClick} className={Styles.googleLogin}>
                                     Google
                                     <i className={`fab fa-google ${Styles.googleIcon}`}></i>
@@ -81,7 +92,18 @@ const Login = ({ firebaseAuth }) => {
                     />
                 </div>
             </div>
+            }
+            
 
+            {loginNow && 
+                <div className={Styles.emailLoginBg}>
+                    <div className={Styles.emailLogin}>
+                        <EmailLogin 
+                            onClickCancel={onClickEmailLogin}
+                            firebaseAuth={firebaseAuth}
+                        />
+                    </div>
+                </div>
             }
 
         </div>

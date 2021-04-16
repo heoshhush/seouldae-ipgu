@@ -16,6 +16,16 @@ const Board = ({firebaseAuth, database }) => {
     const [cards, setCards] = useState({})
     const [boardId, setBoardId] = useState(historyState && historyState.id)
     const [boardDisplayName, setBoardDIsplayName] = useState(historyState && historyState.displayName)
+    console.log(`boardDPName: ${boardDisplayName}`)
+    console.log(`boardID : ${boardId}`)
+    
+    firebaseAuth.authChanged(user => {
+        if(user){
+            setBoardId(user.uid);
+            setBoardDIsplayName(user.displayName);
+    }})
+
+    //보드 새로불러오기 
 
     const getEndCard = () => {
         database.loadEndElem(value => setEndCard(value))
@@ -24,6 +34,7 @@ const Board = ({firebaseAuth, database }) => {
         // then으로 이어주지 않는다면 휘발해버린다! 그러니 한번에 함수 실행시키든지 해야함
 }
 
+    
     const [endCard, setEndCard] = useState()
     const [cardsLength, setCardsLength] = useState();
     const [buttons, setButtons] = useState([]);
@@ -44,7 +55,7 @@ const Board = ({firebaseAuth, database }) => {
             views: card.views,
             whoClicked: card.whoClicked,
             whoViews: card.whoViews,
-            comment: card.comment
+            comment: card.comment,
         }
     }
     const onClickCard = (URL, history, card) => {
