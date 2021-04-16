@@ -12,8 +12,7 @@ const Main = ({ firebaseAuth }) => {
     const historyState = history.location.state;
     const [userId, setUserId] = useState(historyState && historyState.id)
     const [displayName, setDisplayName] = useState(historyState && historyState.displayName)
-    console.log(`main displayName :${historyState.displayName}`)
-    console.log(`main user id :${userId}`) 
+
 
 
     useEffect(() => {
@@ -42,11 +41,20 @@ const Main = ({ firebaseAuth }) => {
                 user.updateProfile({
                     displayName: text
                 })
+                history.push({
+                    pathname:'/main',
+                    state:{
+                        id:historyState.id,
+                        displayName:text
+                    }
+                })
                 setDisplayName(text)
             }
         })
     }
-
+    console.log(`main displayName :${historyState.displayName}`)
+    console.log(`main user id :${userId}`) 
+    console.log(`dpname ${displayName}`)
 
     
     return(

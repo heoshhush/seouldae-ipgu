@@ -13,7 +13,8 @@ const Header = ({ firebaseAuth, userId, displayName, getMainUserId, getMainDispl
     const [headerDisplayName, setDisplayName] = useState(displayName);
 
     console.log(`header: ${headerUserId}`)
-    console.log(`header displayName : ${headerDisplayName}`)
+    console.log(`headerdisplayName : ${headerDisplayName}`)
+    console.log(`in header, displayName props : ${displayName}`)
 
     console.log(firebaseAuth.getUserInfo())
 
@@ -34,7 +35,7 @@ const Header = ({ firebaseAuth, userId, displayName, getMainUserId, getMainDispl
             pathname:'/main',
             state:{
                 id: headerUserId,
-                displayName: headerDisplayName
+                displayName: displayName
             }})
     } 
 
@@ -48,7 +49,7 @@ const Header = ({ firebaseAuth, userId, displayName, getMainUserId, getMainDispl
             pathname:`/${event.currentTarget.name}`,
             state: {
                 id: headerUserId,
-                displayName: headerDisplayName,
+                displayName: displayName,
             }
         })
     }

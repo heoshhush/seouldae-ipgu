@@ -27,6 +27,7 @@ const Board = ({firebaseAuth, database }) => {
     const [endCard, setEndCard] = useState()
     const [cardsLength, setCardsLength] = useState();
     const [buttons, setButtons] = useState([]);
+    const [nCommentLength, setNCommentLength] = useState(0);
 
     const getState = (card) => {
         return {
@@ -175,8 +176,6 @@ const Board = ({firebaseAuth, database }) => {
             }
         })
     }
-
-
 
     useEffect(() => {
         loadCards()
@@ -341,6 +340,7 @@ const Board = ({firebaseAuth, database }) => {
                             firebaseAuth={firebaseAuth}
                             userId={boardId}
                             displayName={boardDisplayName}
+
                         />}
                     </Route>
                 ))

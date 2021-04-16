@@ -1,16 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import Styles from './login.module.css';
 import logo from '../../common/logo/logo_transparent.png'
 import Footer from '../footer/footer';
+import SignUp from './signUp/signUp';
 
 const Login = ({ firebaseAuth }) => {
-
+    const [signUp, setSignUp] = useState(false);
     const history = useHistory();
 
     const onClick = (event) => {
         const provider = firebaseAuth.getProvider(event.currentTarget.textContent);
         firebaseAuth.login(provider);
+    }
+
+    const onClickSignUp = () => {
+        const sign = signUp ? false : true;
+        setSignUp(sign); 
     }
 
     useEffect(() => {
@@ -29,15 +35,17 @@ const Login = ({ firebaseAuth }) => {
     }
     , [history, firebaseAuth])
 
-
-
     return(
         <div className={Styles.container}>
-                
                     <div className={Styles.loginHeader}>
                         <img className={Styles.logo} src={logo} alt="logo"/>
                         <div className={Styles.headerBtns}>
-                            <button className={Styles.headerAboutBtn}>About</button>
+                            <button 
+                                onClick={onClickSignUp}
+                                className={Styles.headerSignUpBtn}>
+                                    회원가입
+                            </button>
+                            <button className={Styles.headerAboutBtn}>about</button>
                         </div>
                     </div>
                     <div className={Styles.innerContainer}>
@@ -62,8 +70,20 @@ const Login = ({ firebaseAuth }) => {
                     <div className={Styles.aboutPage}>
                         <div className={Styles.aboutPageTitle}>About</div>
                     </div>
-
             <Footer />
+
+            {signUp && 
+            <div className={Styles.signUpBg}>
+                <div className={Styles.signUp}>
+                    <SignUp 
+                        onClickCancel={onClickSignUp}
+                        firebaseAuth={firebaseAuth}
+                    />
+                </div>
+            </div>
+
+            }
+
         </div>
     )
 }

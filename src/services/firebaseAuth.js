@@ -34,6 +34,16 @@ class FirebaseAuth {
         }
     }
 
+    // 가입 -----
+    
+    signUp = (email, password) => {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+            const user = userCredential;
+            console.log(user)
+        })
+    }
+
 }
 
 export default FirebaseAuth ;

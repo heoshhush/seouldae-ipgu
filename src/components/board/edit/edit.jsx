@@ -5,7 +5,6 @@ import Styles from './edit.module.css';
 const Edit = ({writeCards, userId, displayName}) => {
     const titleRef = useRef();
     const textRef = useRef();
-
     const history = useHistory();
     const historyState = history.location.state;
 
@@ -26,12 +25,12 @@ const Edit = ({writeCards, userId, displayName}) => {
             whoClicked: historyState.whoClicked,
             comment: historyState.comment
         }        
-        writeCards(editCard)
-        history.push({
-            pathname: '/board',
-            state: {
-                id: historyState.userId,
-                displayName: historyState.nickname
+            writeCards(editCard)
+            history.push({
+                pathname: '/board',
+                state: {
+                    id: historyState.userId,
+                    displayName: historyState.nickname
             }
         })
         
