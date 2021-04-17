@@ -15,12 +15,17 @@
   border: 2px solid gray;
   height: 40%;
 }
+
 .popular {
   flex-basis: 50%;
   border-right: 1px solid gray;
-  margin-top: 1em;
+  margin-top: 0.3em;
   margin-bottom: 1em;
   padding: 0.5em;
+}
+.popularHeader {
+  display: flex;
+  flex-direction: row;
 }
 .popularTitle {
   width: 8em;
@@ -28,9 +33,10 @@
   font-size: 2em;
   font-family: "doHyeon";
 }
+
 .trading {
   flex-basis: 50%;
-  margin-top: 1em;
+  margin-top: 0.3em;
   margin-bottom: 1em;
   padding: 0.5em;
 }

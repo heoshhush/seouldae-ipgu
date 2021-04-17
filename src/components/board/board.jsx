@@ -338,10 +338,6 @@ const Board = ({firebaseAuth, database }) => {
                 
                 ))}
 
-
-
-
-
                 {Object.keys(cards).map(key=> (
                     <Route path={`/board/view&id=${key}`} exact>
                         { historyState && <View 

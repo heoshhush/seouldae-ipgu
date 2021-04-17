@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import Styles from './center.module.css'
+import Popular from './popular/popular';
 
-const Center = (props) => {
-    const [populars, setPopulars] = useState({});
-
+const Center = ({ firebasePopular }) => {
+    
+    
     return(
         <div className={Styles.center}>
             <div className={Styles.firstLine}>
                 <div className={Styles.popular}>
-                    <div className={Styles.popularTitle}>
-                        인기글
+                    <div className={Styles.popularHeader}>
+                        <div className={Styles.popularTitle}>
+                            인기글
+                        </div>
+
                     </div>
+                    <Popular 
+                        firebasePopular={firebasePopular}
+                    />
                 </div>
                 <div className={Styles.trading}>
                     <div className={Styles.tradingTitle}>

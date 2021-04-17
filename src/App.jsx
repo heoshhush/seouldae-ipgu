@@ -9,7 +9,7 @@ import Login from './components/login/login';
 import Main from './components/main/main';
 import Popular from './components/popular/popular';
 
-function App({ firebaseAuth, database }) {
+function App({ firebaseAuth, database, firebasePopular }) {
 
   return (
       <BrowserRouter basename="/seouldae-ipgu">
@@ -22,6 +22,7 @@ function App({ firebaseAuth, database }) {
           <Route path="/main">
             <Main 
               firebaseAuth={firebaseAuth}
+              firebasePopular={firebasePopular}
             />
           </Route>
           <Route path="/popular">

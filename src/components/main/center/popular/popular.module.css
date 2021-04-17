@@ -1,0 +1,22 @@
+.popularBtns {
+  width: 100%;
+  display: flex;
+  margin-left: -0.5em;
+  margin-top: 0.2em;
+  margin-bottom: 1em;
+}
+.popularBtns button {
+  cursor: pointer;
+  margin-top: 0.5em;
+  height: 50%;
+  margin-left: 0.5em;
+  border-radius: 1em;
+  background-color: darkslategray;
+  color: white;
+  border: 0;
+  outline: none;
+}
+.popularBtns button:hover {
+  background: whitesmoke;
+  color: black;
+}

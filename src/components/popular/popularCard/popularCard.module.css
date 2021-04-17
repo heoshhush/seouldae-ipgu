@@ -1,0 +1,29 @@
+.popularCard {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.2em;
+  font-size: 0.9em;
+}
+.popularCard:hover {
+  background-color: wheat;
+}
+.left {
+  display: flex;
+  flex-direction: row;
+  flex-basis: 87%;
+}
+.commentNum {
+  font-size: 0.9em;
+  color: gray;
+  margin-left: 0.2em;
+}
+.date {
+  background-color: dimgray;
+  font-size: 0.9em;
+  color: white;
+  border-radius: 0.7em;
+  padding: 0.2em;
+}

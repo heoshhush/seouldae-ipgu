@@ -7,13 +7,11 @@ import Center from './center/center';
 import Styles from './main.module.css'
 import SettingUserInfo from './settingUserInfo/settingUserInfo';
 
-const Main = ({ firebaseAuth }) => {
+const Main = ({ firebaseAuth, firebasePopular }) => {
     const history = useHistory();
     const historyState = history.location.state;
     const [userId, setUserId] = useState(historyState && historyState.id)
     const [displayName, setDisplayName] = useState(historyState && historyState.displayName)
-
-
 
     useEffect(() => {
         firebaseAuth.authChanged(user => {
@@ -84,6 +82,7 @@ const Main = ({ firebaseAuth }) => {
                     updateUserProfile = {updateUserProfile}
                 />
                 <Center 
+                    firebasePopular={firebasePopular}
                 />
 
 
