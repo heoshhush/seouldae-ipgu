@@ -16,6 +16,7 @@ const View = ({ card, database, firebaseAuth, userId, displayName }) => {
     const whoViewsView = viewCard ? viewCard.whoViews : {};
 
     console.log(`viewid: ${historyState.id}`)
+    console.log(`vId: ${viewUserId}`)
 
     const getClickStar = () => {
         if(!whoClicked){

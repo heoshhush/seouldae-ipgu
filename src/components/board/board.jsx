@@ -347,7 +347,6 @@ const Board = ({firebaseAuth, database }) => {
                             firebaseAuth={firebaseAuth}
                             userId={boardId}
                             displayName={boardDisplayName}
-
                         />}
                     </Route>
                 ))

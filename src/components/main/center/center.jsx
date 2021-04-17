@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Styles from './center.module.css'
 import Popular from './popular/popular';
 
-const Center = ({ firebasePopular }) => {
+const Center = ({ firebasePopular, onClickPopularCard }) => {
     
     
     return(
@@ -17,6 +17,7 @@ const Center = ({ firebasePopular }) => {
                     </div>
                     <Popular 
                         firebasePopular={firebasePopular}
+                        onClickPopularCard={onClickPopularCard}
                     />
                 </div>
                 <div className={Styles.trading}>

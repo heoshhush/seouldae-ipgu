@@ -54,6 +54,33 @@ const Main = ({ firebaseAuth, firebasePopular }) => {
     console.log(`main user id :${userId}`) 
     console.log(`dpname ${displayName}`)
 
+    const onClickPopularCard = (URL, card) => {
+        history.push({
+            pathname:`${URL}`,
+            state: getState(card)
+        })
+    }
+    
+    const getState = (card) => {
+        return {
+            id: card.id,
+            cardNum: card.cardNum,
+            userId: card.userId,
+            nickname: card.nickname,
+            title: card.title,
+            text: card.text,
+            imgName: card.imgName,
+            imgURL: card.imgURL,
+            date: card.date,
+            star: card.star,
+            views: card.views,
+            whoClicked: card.whoClicked,
+            whoViews: card.whoViews,
+            comment: card.comment,
+        }
+    }
+
+
     
     return(
 
@@ -83,6 +110,7 @@ const Main = ({ firebaseAuth, firebasePopular }) => {
                 />
                 <Center 
                     firebasePopular={firebasePopular}
+                    onClickPopularCard={onClickPopularCard}
                 />
 
 

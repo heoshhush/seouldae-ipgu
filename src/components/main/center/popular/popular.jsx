@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PopularCard from '../../../popular/popularCard/popularCard';
 import Styles from './popular.module.css';
 
-const Popular = ({ firebasePopular }) => {
+const Popular = ({ firebasePopular, onClickPopularCard }) => {
     const [popularByStar, setPopularByStar] = useState({});
     const [popularByView, setPopularByView] = useState({});
     const [popularByComment, setPopularByComment] = useState({});
@@ -62,18 +62,21 @@ const Popular = ({ firebasePopular }) => {
                 <PopularCard 
                     key={key}
                     card={popularByStar[key]}
+                    onClickPopularCard={onClickPopularCard}
                 />
             ))}
             {orderByViews && Object.keys(popularByView).map(key => (
                 <PopularCard 
                     key={key}
                     card={popularByView[key]}
+                    onClickPopularCard={onClickPopularCard}
                 />
             ))}
             {orderByComment && Object.keys(popularByComment).map(key => (
                 <PopularCard 
                     key={key}
                     card={popularByComment[key]}
+                    onClickPopularCard={onClickPopularCard}
                 />
             ))}
         </div>

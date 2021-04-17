@@ -4,7 +4,7 @@ import Footer from '../footer/footer';
 import Header from '../header/header';
 import { useHistory } from 'react-router';
 
-const Popular = ({firebaseAuth}) => {
+const Popular = ({firebaseAuth, onClickPopularCard}) => {
     const history = useHistory();
     const historyState = history.location.state
     console.log(`popular userId : ${historyState.id}`)

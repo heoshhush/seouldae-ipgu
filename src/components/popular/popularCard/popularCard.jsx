@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from './popularCard.module.css';
 
-const PopularCard = ({ card }) => {
+const PopularCard = ({ card, onClickPopularCard }) => {
     
     const commentNum = card.comment ? Object.keys(card.comment).length : 0;
     const getNComKeys = () => {
@@ -25,8 +25,11 @@ const PopularCard = ({ card }) => {
         }
     }
 
+    const URL = `board/view&id=${card.id}`
     const onClickCard = () => {
-        
+        onClickPopularCard(URL, card)
+        // view할때 history로 넘겨주는 것:
+
     }
 
     return(
