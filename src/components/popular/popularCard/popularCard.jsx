@@ -29,7 +29,6 @@ const PopularCard = ({ card, onClickPopularCard }) => {
     const onClickCard = () => {
         onClickPopularCard(URL, card)
         // view할때 history로 넘겨주는 것:
-
     }
 
     return(

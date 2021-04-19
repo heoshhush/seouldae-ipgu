@@ -9,7 +9,7 @@ import Login from './components/login/login';
 import Main from './components/main/main';
 import Popular from './components/popular/popular';
 
-function App({ firebaseAuth, database, firebasePopular }) {
+function App({ firebaseAuth, database, firebasePopular, imageUploader }) {
 
   return (
       <BrowserRouter basename="/seouldae-ipgu">
@@ -23,6 +23,7 @@ function App({ firebaseAuth, database, firebasePopular }) {
             <Main 
               firebaseAuth={firebaseAuth}
               firebasePopular={firebasePopular}
+              ImageUploader={imageUploader}
             />
           </Route>
           <Route path="/popular">
@@ -34,6 +35,7 @@ function App({ firebaseAuth, database, firebasePopular }) {
             <Board
               firebaseAuth={firebaseAuth}
               database={database}
+              imageUploader={imageUploader}
             />
           </Route>
           <Route path="/discuss">

@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import Styles from './write.module.css'
 
-const Write = ({ writeCards, loadCards, getEndCard}) => {
+const Write = ({ writeCards, loadCards, getEndCard, imageUploader}) => {
     const titleRef = useRef();
     const textRef = useRef();
     const history = useHistory();
     const historyState = history.location.state;
+
+    const [url, setURL] = useState({});
 
     const onClickAdd = () => {
         const title = titleRef.current.value;
@@ -28,7 +30,7 @@ const Write = ({ writeCards, loadCards, getEndCard}) => {
             title: titleRef.current.value,
             text: textRef.current.value,
             imgName: 'heo',
-            imgURL: 'heo.heo.com',
+            imgURL: url,
             date: date.toLocaleString(),
             star: 0,
             views: 0,
@@ -48,8 +50,18 @@ const Write = ({ writeCards, loadCards, getEndCard}) => {
         loadCards();
         getEndCard();
     }
-        
     }
+
+    const onFileUpload = async (event) => {
+        const files = event.target.files;
+        const temp = {...url};
+        for(let i = 0; i < files.length ; i ++){
+            temp[i] = (await imageUploader.upload(files[i])).url;
+        }
+        setURL(temp);
+    }
+
+    console.log(url);
 
     return(
         <div>
@@ -62,8 +74,8 @@ const Write = ({ writeCards, loadCards, getEndCard}) => {
                     <i className={`fas fa-pen ${Styles.addIcon}`}></i>
                     글쓰기
                 </button>
-            
-
+                <input type="file" onChange={onFileUpload} multiple
+                />
             </div>
         </div>
     )

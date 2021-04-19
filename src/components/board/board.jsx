@@ -10,7 +10,7 @@ import Pages from './pages/pages';
 import View from './view/view';
 import Write from './write/write';
 
-const Board = ({firebaseAuth, database }) => {
+const Board = ({firebaseAuth, database, imageUploader }) => {
     const history = useHistory();
     const historyState = history.location.state;
     const [cards, setCards] = useState({})
@@ -362,6 +362,7 @@ const Board = ({firebaseAuth, database }) => {
                                     cardsLength = {cardsLength}
                                     loadCards = {loadCards}
                                     getEndCard = {getEndCard}
+                                    imageUploader={imageUploader}
                                 /> } 
                             </Route>
                         </div>

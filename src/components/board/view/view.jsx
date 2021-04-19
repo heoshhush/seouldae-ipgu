@@ -137,6 +137,8 @@ const View = ({ card, database, firebaseAuth, userId, displayName }) => {
 
     const nowStar = clickStar === true ? Styles.starClicked : '';
 
+    console.log(viewCard.imgURL)
+
     return(
         <>
                 <div className={Styles.view}>
@@ -154,7 +156,12 @@ const View = ({ card, database, firebaseAuth, userId, displayName }) => {
                     </div>
  
                     <div className={Styles.text}>
-                            <pre className={Styles.textPre}>{viewCard.text}</pre>
+                
+                            <pre className={Styles.textPre}>
+                                {viewCard.text}
+                            
+                                </pre>
+                            
                         </div>
                     
 
