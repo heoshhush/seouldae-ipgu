@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import ViewImgSlider from '../viewImgSlider/viewImgSlider';
 import ShowComment from './showComment/showComment';
 import Styles from './view.module.css'
 import WriteComment from './writeComment/writeComment';
@@ -154,12 +155,15 @@ const View = ({ card, database, firebaseAuth, userId, displayName }) => {
                             <div className={Styles.date}>작성일  | {viewCard.date}</div>
                         </div>
                     </div>
+                    {viewCard.imgURL && 
+                        <ViewImgSlider 
+                                viewCard={viewCard}
+                            />
+                    }
  
                     <div className={Styles.text}>
-                
                             <pre className={Styles.textPre}>
                                 {viewCard.text}
-                            
                                 </pre>
                             
                         </div>

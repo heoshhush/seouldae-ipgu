@@ -7,23 +7,12 @@ import Center from './center/center';
 import Styles from './main.module.css'
 import SettingUserInfo from './settingUserInfo/settingUserInfo';
 
-const Main = ({ firebaseAuth, firebasePopular }) => {
+const Main = ({ firebaseAuth, firebasePopular, imageUploader }) => {
     const history = useHistory();
     const historyState = history.location.state;
     const [userId, setUserId] = useState(historyState && historyState.id)
     const [displayName, setDisplayName] = useState(historyState && historyState.displayName)
 
-    useEffect(() => {
-        firebaseAuth.authChanged(user => {
-            if(user){
-                setUserId(historyState.id)
-                setDisplayName(firebaseAuth.getUserInfo().displayName)
-            }
-            else if(!user){
-                history.push('/');
-            }
-        })
-    },[])
 
     const getMainUserId = () => {
         return userId;
@@ -107,6 +96,7 @@ const Main = ({ firebaseAuth, firebasePopular }) => {
                     userId = {userId}
                     displayName = {displayName}
                     updateUserProfile = {updateUserProfile}
+                    imageUploader={imageUploader}
                 />
                 <Center 
                     firebasePopular={firebasePopular}

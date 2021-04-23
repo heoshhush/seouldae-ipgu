@@ -1,7 +1,8 @@
 import React from 'react';
 import Styles from './leftside.module.css'
+import ProfileImg from './profileImg/profileImg';
 
-const Leftside = ({firebaseAuth, userId, displayName, updateUserProfile}) =>{
+const Leftside = ({firebaseAuth, proImg, displayName, updateUserProfile, imageUploader }) =>{
     
     const onClickUpdateDisplayName = () => {
         updateUserProfile(null)
@@ -15,9 +16,13 @@ const Leftside = ({firebaseAuth, userId, displayName, updateUserProfile}) =>{
                     <i className={`fas fa-times ${Styles.cancelIcon}`}></i>
                 </button>
             </div>
-            <div className={Styles.profileImg}>profileImg</div>
-            <div className={Styles.nickName}>nickName</div>
-            <div className={Styles.weather}>weather</div>
+            <div className={Styles.profileImg}>
+                <ProfileImg 
+                    proImg={proImg}
+                    firebaseAuth={firebaseAuth}
+                    imageUploader={imageUploader}
+                />
+            </div>
 
         </div>
     )

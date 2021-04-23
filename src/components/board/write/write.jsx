@@ -5,6 +5,7 @@ import Styles from './write.module.css'
 const Write = ({ writeCards, loadCards, getEndCard, imageUploader}) => {
     const titleRef = useRef();
     const textRef = useRef();
+    const inputRef = useRef();
     const history = useHistory();
     const historyState = history.location.state;
 
@@ -21,23 +22,23 @@ const Write = ({ writeCards, loadCards, getEndCard, imageUploader}) => {
         }
 
         else{
-        const date = new Date();
-        const writeCard = {
-            id: Date.now(),
-            cardNum: parseInt(historyState.cardsLength) + 1,
-            userId: historyState.userId,
-            nickname: historyState.nickname,
-            title: titleRef.current.value,
-            text: textRef.current.value,
-            imgName: 'heo',
-            imgURL: url,
-            date: date.toLocaleString(),
-            star: 0,
-            views: 0,
-            whoClicked: {},
-            whoViews: {},
-            comment: {}
-        }        
+            const date = new Date();
+            const writeCard = {
+                id: Date.now(),
+                cardNum: parseInt(historyState.cardsLength) + 1,
+                userId: historyState.userId,
+                nickname: historyState.nickname,
+                title: titleRef.current.value,
+                text: textRef.current.value,
+                imgName: 'heo',
+                imgURL: url,
+                date: date.toLocaleString(),
+                star: 0,
+                views: 0,
+                whoClicked: {},
+                whoViews: {},
+                comment: {}
+            }        
         console.log(writeCard)
         writeCards(writeCard)
         history.push({
@@ -52,21 +53,32 @@ const Write = ({ writeCards, loadCards, getEndCard, imageUploader}) => {
     }
     }
 
+    const imgRef = useRef();
+
     const onFileUpload = async (event) => {
         const files = event.target.files;
         const temp = {...url};
         for(let i = 0; i < files.length ; i ++){
             temp[i] = (await imageUploader.upload(files[i])).url;
+            const img = new Image();
+            img.src = temp[i];
+            imgRef.current.append(img);
         }
         setURL(temp);
     }
 
-    console.log(url);
+    const onClickImgUpload = () => {
+        inputRef.current.click();
+    }
+
+    // 이미지 미리보기하면서 작업할 수 있게 하기
+    // 글 중간에 이미지 위치할 수 있게 하기 (div contenteditable='true')
 
     return(
         <div>
             <div className={Styles.write}>
                 <input ref={titleRef} className={Styles.titleInput} type="text" placeholder="제목"/>
+                <div ref={imgRef}></div>
                 <textarea ref={textRef} className={Styles.textInput} cols="30" rows="20" placeholder="내용"></textarea>
             </div>
             <div className={Styles.btns}>
@@ -74,8 +86,17 @@ const Write = ({ writeCards, loadCards, getEndCard, imageUploader}) => {
                     <i className={`fas fa-pen ${Styles.addIcon}`}></i>
                     글쓰기
                 </button>
-                <input type="file" onChange={onFileUpload} multiple
-                />
+                <button 
+                onClick={onClickImgUpload}
+                className={Styles.imgUploadBtn}>
+                    <i className={`fas fa-images ${Styles.imgUploadIcon}`}></i>
+                    이미지 업로드
+                    <input
+                    ref={inputRef} 
+                    className={Styles.imgUpload}
+                    type="file" onChange={onFileUpload} multiple
+                    />
+                </button>
             </div>
         </div>
     )

@@ -12,7 +12,8 @@
 }
 .title {
   flex-basis: 80%;
-  font-family: "doHyeon";
+  font-family: "roboto";
+  font-size: 0.9em;
 }
 .cancelBtn {
   cursor: pointer;

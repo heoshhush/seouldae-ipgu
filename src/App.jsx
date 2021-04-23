@@ -23,7 +23,7 @@ function App({ firebaseAuth, database, firebasePopular, imageUploader }) {
             <Main 
               firebaseAuth={firebaseAuth}
               firebasePopular={firebasePopular}
-              ImageUploader={imageUploader}
+              imageUploader={imageUploader}
             />
           </Route>
           <Route path="/popular">

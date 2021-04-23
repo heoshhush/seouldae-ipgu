@@ -81,5 +81,18 @@ class FirebaseAuth {
             }
         }
     )}
+
+
+    //사용자 가져오기 및 업데이트
+
+    getUser = () => {
+        const user = firebaseAuth.currentUser;
+        return user;
+    }
+        
+    updateUser = (profile) => {
+        const user = firebaseAuth.currentUser;
+        user.updateProfile(profile);
+    }
 }
 export default FirebaseAuth ;

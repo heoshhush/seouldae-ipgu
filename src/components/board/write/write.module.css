@@ -16,8 +16,19 @@
   padding: 1em;
   font-family: "roboto";
 }
-
-.addBtn {
+.btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.imgUpload {
+  display: none;
+}
+.imgUploadIcon {
+  margin-right: 0.5em;
+}
+.addBtn,
+.imgUploadBtn {
   cursor: pointer;
   background-color: transparent;
   border: 1.2px solid gray;
@@ -26,11 +37,11 @@
   margin-top: 1em;
   background-color: white;
 }
-.addBtn:hover {
+.addBtn:hover,
+.imgUploadBtn:hover {
   background-color: darkslategray;
   color: white;
 }
-
 .addIcon {
   font-size: 1.2em;
   margin-right: 0.5em;
